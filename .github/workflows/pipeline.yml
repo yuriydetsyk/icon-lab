@@ -16,6 +16,10 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        working-directory: ./bd-server
+
     strategy:
       matrix:
         node-version: [14.x]
@@ -23,12 +27,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: cd bd-server
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        working-directory: ./bd-server
     - run: npm ci
     - run: npm run lint
     - run: npm run test:single
