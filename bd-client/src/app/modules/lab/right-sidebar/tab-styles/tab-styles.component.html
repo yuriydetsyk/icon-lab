@@ -1,0 +1,20 @@
+<h2 class="dashed right">Icon Styles</h2>
+
+<ng-container *ngIf="styles">
+  <h3>{{styles.length}} {{DataHelper.hasUnit(styles.length) ? 'style' : 'styles'}} available</h3>
+
+  <div class="styles-list-wrapper">
+    <div class="d-flex flex-wrap styles-list">
+      <div class="mb-2 style-item"
+           *ngFor="let style of styles; let i = index; trackBy: trackStylesFn">
+        <bd-icon-style [style]="style"
+                       [active]="true"
+                       (click)="setStyle(style)"></bd-icon-style>
+      </div>
+      <div class="d-flex justify-content-center align-items-center style-item style-item-more">
+        <h3 class="m-0">More styles are coming Soon...</h3>
+      </div>
+
+    </div>
+  </div>
+</ng-container>

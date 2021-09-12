@@ -1,0 +1,9 @@
+{
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/**/node_modules", "src/previews/**"],
+  "verbose": true,
+  "execMap": {
+    "js": "node --inspect=9223 -r ts-node/register ./src/index.ts"
+  },
+  "ext": "ts,js,json"
+}

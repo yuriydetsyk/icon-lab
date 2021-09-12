@@ -1,0 +1,22 @@
+@import '../../../../../assets/styles/variables';
+
+.styles-list-wrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100% - 4.1rem);
+
+  .styles-list {
+    margin: 0 -0.5rem;
+
+    .style-item {
+      width: 100%;
+      padding: 0 0.5rem 0.5rem;
+
+      &.style-item-more {
+        background-color: $background;
+        border-radius: 0.5rem;
+        height: 176px;
+      }
+    }
+  }
+}

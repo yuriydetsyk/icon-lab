@@ -1,0 +1,40 @@
+<div class="d-flex flex-column">
+  <input class="d-none"
+         type="file"
+         multiple
+         accept="image/*"
+         #files
+         (change)="selectFiles($event)" />
+  <button class="btn btn-menu btn-icon mb-2 icon-collection"
+          (click)="files.click()">Select Files</button>
+
+  <ng-container *ngIf="selectedFilesArray?.length && !loading">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">File Name</th>
+          <th scope="col">File Size</th>
+          <th scope="col">Preview</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let file of selectedFilesArray; let i = index; trackBy: trackFn">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ file.name }}</td>
+          <td>{{ file.size | formatBytes }}</td>
+          <td class="text-center"><img class="icon-preview"
+                 [src]="filePreviews.get(file.name) | async" /></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button class="btn"
+            (click)="uploadBackgrounds()">Upload Backgrounds</button>
+  </ng-container>
+
+  <span *ngIf="loading"
+        class="spinner"></span>
+</div>
+
+<bd-notifications [items]="notifications$ | async"></bd-notifications>

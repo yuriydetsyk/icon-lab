@@ -1,0 +1,33 @@
+@import '../../../../../assets/styles/variables';
+
+.backgrounds-list-wrapper {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100% - 4.1rem);
+
+  .backgrounds-list {
+    margin: 0 -0.5rem;
+
+    .background-item {
+      width: 100%;
+      padding: 0 0.5rem 0.5rem;
+
+      @include w1300 {
+        width: 50%;
+      }
+
+      // TODO: remove or adjust
+      &.btn {
+        border: 1px solid #dbcbf5;
+        box-shadow: none;
+        width: 100%;
+        height: 176px;
+        margin: 0 0.5rem 0.5rem;
+
+        @include w1300 {
+          width: 176px;
+        }
+      }
+    }
+  }
+}

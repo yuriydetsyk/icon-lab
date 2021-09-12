@@ -1,0 +1,12 @@
+<div class="playground-wrapper"
+     [style.background-color]="backgroundColor$ | async">
+  <div class="position-relative playground-body"
+       [style.width.px]="artboardSize.width"
+       [style.height.px]="artboardSize.height">
+    <ng-container *ngFor="let position of (availablePositions$ | async)">
+      <bd-playground-icon [icon]="getIcon(position) | async"
+                          [position]="position"
+                          [canRotate]="position !== IconPosition.Background"></bd-playground-icon>
+    </ng-container>
+  </div>
+</div>

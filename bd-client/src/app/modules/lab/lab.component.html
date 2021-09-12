@@ -1,0 +1,59 @@
+<div class="d-flex justify-content-between align-items-stretch position-relative overflow-hidden lab-viewport">
+  <div class="d-flex flex-column justify-content-between flex-grow-1 lab-wrapper"
+       [class.has-opened-sidebar]="hasOpenedRightSidebar$ | async">
+    <bd-text-input [formControl]="iconName"
+                   placeholder="Please enter the icon name..."
+                   cssClass="w-100"></bd-text-input>
+
+    <div class="d-flex align-items-center">
+      <bd-layout-selector class="layout-selector"></bd-layout-selector>
+      <bd-playground class="playground"></bd-playground>
+
+      <div class="d-flex flex-column flex-grow-1">
+        <ng-container *ngIf="hasBackgroundPosition$ | async">
+          <h3 class="dashed right color-picker-heading">Background Color</h3>
+          <bd-color-picker class="mb-4"
+                           [ngModel]="backgroundColor$ | async"
+                           (ngModelChange)="setBackgroundColor($event)"
+                           [savedColors]="savedColors$ | async"
+                           (addToSaved)="addToSaved($event)"
+                           (removeFromSaved)="removeFromSaved($event)"
+                           (savedColorsChanged)="replaceSaved($event)"></bd-color-picker>
+        </ng-container>
+
+        <ng-container *ngIf="hasSelectedIcon$ | async">
+          <h3 class="dashed right color-picker-heading">Selection Colors</h3>
+
+          <ng-container *ngIf="hasSelectedVectorIcon$ | async; else rasterIconInfo">
+            <bd-color-picker *ngFor="let selectedColor of selectedColorControls"
+                             class="mb-2"
+                             [formControl]="selectedColor"
+                             [savedColors]="savedColors$ | async"
+                             (addToSaved)="addToSaved(selectedColor.value)"
+                             (removeFromSaved)="removeFromSaved(selectedColor.value)"
+                             (savedColorsChanged)="replaceSaved($event)"></bd-color-picker>
+          </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="(hasBackgroundPosition$ | async) === false && (hasSelectedIcon$ | async) === false">
+          <span class="font-italic icon-info-text">Select the icon you want to change.</span>
+        </ng-container>
+
+        <ng-template #rasterIconInfo>
+          <span class="font-weight-bold icon-info-text">Raster icons cannot be modified.</span>
+        </ng-template>
+      </div>
+    </div>
+
+    <bd-lab-actions></bd-lab-actions>
+
+    <!-- TODO: Remove preview container -->
+    <div class="position-absolute d-inline-block lab-wrapper-preview"
+         style="opacity: 0.5"></div>
+
+    <bd-footer class="d-flex d-xl-none mx-auto"
+               [showLogo]="true"></bd-footer>
+  </div>
+
+  <bd-right-sidebar [class.sidebar-hidden]="(hasOpenedRightSidebar$ | async) === false"></bd-right-sidebar>
+</div>

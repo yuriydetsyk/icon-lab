@@ -1,0 +1,8 @@
+<div class="btn-group"
+     *ngIf="entries">
+  <button type="button"
+          class="btn"
+          [class.active]="value === option[0]"
+          *ngFor="let option of entries"
+          (click)="updateValue(option[0])">{{option[1]}}</button>
+</div>

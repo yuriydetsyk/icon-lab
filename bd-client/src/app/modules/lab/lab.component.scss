@@ -1,0 +1,63 @@
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@import '../../../assets/styles/variables';
+
+:host {
+  width: 100%;
+
+  .lab-viewport {
+    min-height: calc(100vh - #{$header-height});
+
+    @include media-breakpoint-up(xl) {
+      height: 100vh;
+    }
+
+    .lab-wrapper {
+      padding: 2rem;
+      max-width: calc(100% - #{$lab-sidebar-hidden-width});
+      width: 0;
+
+      @include media-breakpoint-up(xl) {
+        padding: 4rem;
+      }
+
+      .layout-selector,
+      .playground {
+        margin-right: 2rem;
+      }
+
+      .color-picker-heading {
+        margin-right: -4rem;
+      }
+
+      .icon-info-text {
+        color: $violet-80;
+        font-size: 0.625rem;
+      }
+
+      @include w1200 {
+        max-width: calc(100% - #{labSidebarWidth('lg')});
+      }
+
+      @include w1300 {
+        max-width: calc(100% - #{labSidebarWidth('xl')});
+      }
+
+      @include wSmall {
+        &.has-opened-sidebar {
+          &::after {
+            background-color: $background2;
+            content: '';
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+          }
+        }
+      }
+    }
+  }
+}

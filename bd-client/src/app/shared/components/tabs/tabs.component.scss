@@ -1,0 +1,34 @@
+@import '../../../../assets/styles/variables';
+
+:host {
+  display: flex;
+
+  .btn.btn-tab {
+    background-color: transparent;
+    border-radius: 0 0 1rem 1rem;
+    width: 136px;
+    height: 56px;
+    box-shadow: none;
+    line-height: 1rem;
+
+    &.snap-bottom {
+      border-radius: 1rem 1rem 0 0;
+    }
+
+    &:not(:disabled):not(.disabled) {
+      &.hover,
+      &:hover {
+        box-shadow: none;
+      }
+
+      &.active,
+      &:active,
+      &:focus,
+      &:active:focus,
+      &.active:focus {
+        background-color: $violet-60;
+        box-shadow: 4px 4px 8px $violet-40;
+      }
+    }
+  }
+}

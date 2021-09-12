@@ -1,0 +1,19 @@
+@import '../../../../assets/styles/variables';
+
+.lab-actions {
+  background-color: $background;
+  border-radius: 1rem;
+}
+
+.btn {
+  padding: 0.75rem 3rem;
+}
+
+.dropdown.dropdown-export {
+  .dropdown-menu {
+    &.opened {
+      top: auto;
+      bottom: 100%;
+    }
+  }
+}

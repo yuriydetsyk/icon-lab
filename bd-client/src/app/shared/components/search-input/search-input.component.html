@@ -1,0 +1,19 @@
+<div class="d-flex align-items-center w-100 search-input-wrapper"
+     (mouseenter)="hover = true"
+     (mouseleave)="hover = false">
+  <span class="icon icon-search aicon-search-active search-icon"
+        [class.hover]="hover"
+        [class.active]="active"
+        (click)="input.focus()"></span>
+  <input class="search-input"
+         #input
+         [class.hover]="hover"
+         [class.active]="active"
+         (blur)="onTouch()"
+         [ngModel]="value"
+         (ngModelChange)="onModelChange($event)"
+         [placeholder]="placeholder" />
+  <button class="icon icon-cross search-clear"
+          *ngIf="value"
+          (click)="clearSearch()"></button>
+</div>

@@ -1,0 +1,33 @@
+<div #svgContainer
+     class="svg-container {{ImageHelper.ICON_CONTAINER_CSS_CLASS}}"
+     [class.active]="isSelected$ | async"
+     [class.hover]="hover"
+     [style.left.px]="iconCoordinates.x"
+     [style.top.px]="iconCoordinates.y"
+     [style.width.px]="iconSize.width"
+     [style.height.px]="iconSize.height"
+     [style.transform]="transformData"
+     [class.svg-container-bg]="isBackground"
+     (mouseleave)="hover = false"
+     (click)="selectIconPosition()"
+     (keyup.enter)="selectIconPosition()"
+     tabindex="0">
+  <div class="icon-tools"
+       *ngIf="isSelected$ | async">
+    <div class="tool-rotation"
+         *ngIf="canRotate">
+      <button class="btn btn-icon icon-rotate"
+              [class.active]="isRotating"
+              (click)="$event.stopPropagation()"
+              (mousedown)="toggleRotate(true)"></button>
+      <span *ngIf="isRotating && rotationAngle != null"
+            class="font-weight-bold rotation-angle">{{rotationAngle | number:'1.0-0'}}&#176;</span>
+    </div>
+    <!-- TODO: fully implement -->
+    <!-- <div class="tool-move">
+      <button class="btn btn-icon icon-rotate"
+              (click)="$event.stopPropagation()"
+              (mousedown)="toggleMove(true, $event)"></button>
+    </div> -->
+  </div>
+</div>

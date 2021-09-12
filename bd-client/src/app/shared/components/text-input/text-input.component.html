@@ -1,0 +1,17 @@
+<div class="text-input-wrapper"
+     (mouseenter)="hover = true"
+     (mouseleave)="hover = false">
+  <input [attr.id]="inputId"
+         [type]="type"
+         class="text-input"
+         [class.hover]="hover"
+         [class.active]="active"
+         [ngClass]="cssClass"
+         [attr.placeholder]="placeholder"
+         [ngModel]="value"
+         (ngModelChange)="onModelChange($event)">
+  <button class="icon icon-cross text-clear"
+          *ngIf="value"
+          (click)="clearText()"
+          title="Clear"></button>
+</div>

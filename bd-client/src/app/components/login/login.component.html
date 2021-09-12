@@ -1,0 +1,32 @@
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+  <a class="mb-2 mx-auto app-logo"
+     routerLink=""></a>
+
+  <h5>Login Form</h5>
+
+  <form [formGroup]="form"
+        (ngSubmit)="login()">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <bd-text-input inputId="email"
+                     formControlName="email"
+                     placeholder="Your email..."
+                     cssClass="w-100"></bd-text-input>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <bd-text-input inputId="password"
+                     formControlName="password"
+                     placeholder="Your password..."
+                     cssClass="w-100"
+                     type="password"></bd-text-input>
+    </div>
+    <button type="submit"
+            class="btn btn-primary mb-3"
+            [disabled]="form.invalid">Submit</button>
+    <div *ngIf="errorMessage"
+         class="alert alert-danger"
+         role="alert">{{errorMessage}}</div>
+
+  </form>
+</div>

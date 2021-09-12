@@ -1,0 +1,215 @@
+<div class="d-flex flex-column"
+     [formGroup]="form">
+  <a class="mt-5 mb-2 mx-auto app-logo"
+     routerLink=""></a>
+
+  <h1 class="dashed">StyleGuide</h1>
+
+  <div class="d-flex justify-content-between mb-5 section-buttons">
+    <div class="w-50 menu-buttons">
+      <h6 class="dashed left">Menu Buttons</h6>
+      <div class="d-flex">
+        <div class="d-flex flex-column align-items-center mr-4">
+          <label class="mb-2">Normal</label>
+          <button class="btn btn-menu btn-icon icon-collection">Collection</button>
+        </div>
+
+        <div class="d-flex flex-column align-items-center mr-4">
+          <label class="mb-2">Hover</label>
+          <button class="btn btn-menu hover btn-icon icon-collection">Collection</button>
+        </div>
+
+        <div class="d-flex flex-column align-items-center">
+          <label class="mb-2">Active</label>
+          <button class="btn btn-menu active btn-icon icon-collection">Collection</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-50 buttons">
+      <h6 class="dashed right">Buttons</h6>
+      <div class="d-flex">
+        <div class="d-flex flex-column align-items-center mr-4">
+          <label class="mb-2">Normal</label>
+          <button class="btn">Button</button>
+        </div>
+
+        <div class="d-flex flex-column align-items-center mr-4">
+          <label class="mb-2">Hover</label>
+          <button class="btn hover">Button</button>
+        </div>
+
+        <div class="d-flex flex-column align-items-center">
+          <label class="mb-2">Active</label>
+          <button class="btn active">Button</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-5 section-inputs">
+    <h6 class="dashed left">Input Fields</h6>
+    <div class="d-flex">
+      <div class="d-flex flex-column align-items-start mr-4">
+        <label class="mb-2">Normal</label>
+        <bd-text-input placeholder="icon-name"
+                       formControlName="inputNormal"></bd-text-input>
+      </div>
+
+      <div class="d-flex flex-column align-items-start mr-4">
+        <label class="mb-2">Hover</label>
+        <bd-text-input placeholder="icon-name"
+                       [hover]="true"
+                       formControlName="inputHover"></bd-text-input>
+      </div>
+
+      <div class="d-flex flex-column align-items-start">
+        <label class="mb-2">Active</label>
+        <bd-text-input placeholder="icon-name"
+                       [active]="true"
+                       formControlName="inputActive"></bd-text-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between mb-5 section-icons">
+    <div class="w-50 layout-icons">
+      <h6 class="dashed left">Layout Icons</h6>
+      <div class="d-flex">
+        <div class="d-flex flex-column align-items-center mr-5">
+          <label class="mb-2">Normal</label>
+          <span class="icon icon-layout-bottom-right layout"></span>
+        </div>
+
+        <div class="d-flex flex-column align-items-center mr-5">
+          <label class="mb-2">Hover</label>
+          <span class="icon icon-layout-bottom-right layout hover"></span>
+        </div>
+
+        <div class="d-flex flex-column align-items-center">
+          <label class="mb-2">Active</label>
+          <span class="icon icon-layout-bottom-right layout active"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-50 system-icons">
+      <h6 class="dashed right">System Icons</h6>
+      <div class="d-flex">
+        <div class="d-flex flex-column align-items-center mr-5">
+          <label class="mb-2">Normal</label>
+          <span class="icon icon-star aicon-star-filled"></span>
+        </div>
+
+        <div class="d-flex flex-column align-items-center mr-5">
+          <label class="mb-2">Hover</label>
+          <span class="icon icon-star aicon-star-filled hover"></span>
+        </div>
+
+        <div class="d-flex flex-column align-items-center">
+          <label class="mb-2">Active</label>
+          <span class="icon icon-star-filled active"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between mb-5 section-constructor">
+    <div class="flex-grow-1 selection-colors">
+      <h6 class="dashed left">Selection Colors</h6>
+      <div class="d-flex flex-column">
+        <div class="d-flex flex-column align-items-start mb-5">
+          <label class="mb-2">Normal</label>
+          <bd-color-picker formControlName="colorNormal"></bd-color-picker>
+        </div>
+
+        <div class="d-flex flex-column align-items-start">
+          <label class="mb-2">Hover</label>
+          <bd-color-picker formControlName="colorHover"
+                           [hover]="true"></bd-color-picker>
+        </div>
+      </div>
+    </div>
+
+    <div class="icon-constructor">
+      <h6 class="dashed right">Icon Constructor</h6>
+      <div class="d-flex">
+        <div class="d-flex flex-column align-items-center position-relative mr-5">
+          <label class="mb-2">Normal</label>
+          <bd-playground-icon [icon]="iconPlaceholder"></bd-playground-icon>
+        </div>
+
+        <div class="d-flex flex-column align-items-center position-relative mr-5">
+          <label class="mb-2">Hover</label>
+          <bd-playground-icon [icon]="iconPlaceholder"
+                              [hover]="true"></bd-playground-icon>
+        </div>
+
+        <div class="d-flex flex-column align-items-center position-relative mr-5"
+             *ngFor="let icon of icons">
+          <label class="mb-2">API Test</label>
+          <bd-playground-icon [icon]="icon"></bd-playground-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mb-5 section-search">
+    <h6 class="dashed left">Search Input</h6>
+    <div class="d-flex">
+      <div class="d-flex flex-column align-items-start mr-5">
+        <label class="mb-2">Normal</label>
+        <bd-search-input placeholder="Search..."
+                         formControlName="searchNormal"></bd-search-input>
+      </div>
+
+      <div class="d-flex flex-column align-items-start mr-5">
+        <label class="mb-2">Hover</label>
+        <bd-search-input [hover]="true"
+                         placeholder="Search..."
+                         formControlName="searchHover"></bd-search-input>
+      </div>
+
+      <div class="d-flex flex-column align-items-start">
+        <label class="mb-2">Active</label>
+        <bd-search-input [active]="true"
+                         placeholder="Search..."
+                         formControlName="searchActive"></bd-search-input>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-tabs">
+    <h6 class="dashed left">Tabs</h6>
+    <div class="d-flex flex-column">
+      <div class="d-flex">
+        <div class="d-flex flex-column align-items-start">
+          <label class="mr-2 mb-2">Normal</label>
+        </div>
+
+        <div class="d-flex flex-column align-items-start">
+          <label class="mr-2 mb-2">Hover</label>
+        </div>
+
+        <div class="d-flex flex-column align-items-start">
+          <label class="mb-2">Active</label>
+        </div>
+      </div>
+
+      <bd-tabs [tabs]="tabs"></bd-tabs>
+    </div>
+  </div>
+
+  <div class="mb-5 section-dropdown">
+    <h6 class="dashed left">Dropdown</h6>
+    <div class="d-flex">
+      <div class="d-flex flex-column align-items-start">
+        <bd-dropdown placeholder="Select a category..."
+                     formControlName="dropdown"
+                     [items]="dropdownItems"
+                     valueProp="key"
+                     labelProp="value"></bd-dropdown>
+      </div>
+    </div>
+  </div>
+</div>

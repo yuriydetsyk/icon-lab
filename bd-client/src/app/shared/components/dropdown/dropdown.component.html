@@ -1,0 +1,20 @@
+<div class="d-flex align-items-center w-100 dropdown"
+     #dropdown>
+  <button class="btn btn-secondary dropdown-toggle"
+          type="button"
+          [ngClass]="cssClass">
+    {{ label }}
+  </button>
+  <span class="icon icon-dropdown-arrow dropdown-icon"></span>
+  <ul class="dropdown-menu"
+      [class.opened]="opened">
+    <li *ngIf="placeholder">
+      <a class="dropdown-item"
+         (click)="onModelChange(null)">{{placeholder}}</a>
+    </li>
+    <li *ngFor="let item of items">
+      <a class="dropdown-item"
+         (click)="onModelChange(item)">{{item[labelProp] || item}}</a>
+    </li>
+  </ul>
+</div>

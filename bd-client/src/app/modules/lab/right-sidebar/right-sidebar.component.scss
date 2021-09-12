@@ -1,0 +1,46 @@
+@import '../../../../assets/styles/variables';
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+:host {
+  background-color: $light;
+  border-left: 1px solid $violet-20;
+  padding: 2rem;
+  width: labSidebarWidth('lg');
+  height: 100%;
+  box-shadow: 4px 4px 16px $violet-40;
+  position: absolute;
+  transition: right 0.3s ease-in-out;
+  right: 0;
+  top: 0;
+
+  @include w1300 {
+    width: labSidebarWidth('xl');
+  }
+
+  @include wSmall {
+    &.sidebar-hidden {
+      right: -(labSidebarWidth('lg') - $lab-sidebar-hidden-width);
+
+      .sidebar-wrapper::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    }
+  }
+
+  .sidebar-wrapper {
+    height: 100%;
+
+    .content-wrapper {
+      max-height: 100%;
+      overflow: hidden;
+    }
+  }
+}

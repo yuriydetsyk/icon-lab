@@ -1,0 +1,15 @@
+<div class="icon"
+     [class.active]="active"
+     [class.large]="large"
+     (focus)="active = true"
+     (blur)="active = false"
+     [style.background-image]="ImageHelper.getCssUrl(icon?.url)"
+     tabindex="0">
+
+</div>
+
+<div *ngIf="icon?.type === IconType.Raster"
+     class="position-absolute icon-premium-wrapper">
+  <span class="icon icon-star-filled hicon-star-filled icon-premium"
+        title="Premium Icon"></span>
+</div>

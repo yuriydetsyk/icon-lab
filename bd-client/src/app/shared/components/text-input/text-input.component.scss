@@ -1,0 +1,42 @@
+@import '../../../../assets/styles/variables';
+
+.text-input-wrapper {
+  position: relative;
+
+  .text-input {
+    padding: 0.75rem 3rem 0.75rem 1rem;
+
+    &.hover,
+    &:hover {
+      & + .text-clear {
+        visibility: visible;
+      }
+    }
+
+    &.active,
+    &:active,
+    &:focus {
+      border-color: $yellow;
+      color: $violet-100;
+
+      & + .text-clear {
+        visibility: visible;
+      }
+    }
+  }
+
+  .text-clear {
+    background-color: $violet-80;
+    border: 0;
+    position: absolute;
+    right: 1rem;
+    top: 0.75rem;
+    width: 24px;
+    height: 24px;
+    visibility: hidden;
+
+    &:hover {
+      background-color: $violet-100;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<aside class="d-flex flex-column sidebar-wrapper"
+       (click)="toggleRightSidebar(true)">
+  <div class="content-wrapper flex-shrink-1">
+    <ng-container *ngIf="(hasIconPosition$ | async) || (hasBackgroundPosition$ | async); else selectStyles">
+      <bd-tab-icons *ngIf="hasIconPosition$ | async"></bd-tab-icons>
+      <bd-tab-backgrounds *ngIf="hasBackgroundPosition$ | async"></bd-tab-backgrounds>
+    </ng-container>
+    <ng-template #selectStyles>
+      <bd-tab-styles></bd-tab-styles>
+    </ng-template>
+  </div>
+</aside>

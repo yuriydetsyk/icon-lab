@@ -1,0 +1,35 @@
+<h2 class="dashed right">Icon Library</h2>
+
+<form [formGroup]="searchForm">
+  <bd-dropdown class="w-100 mb-3"
+               placeholder="All Categories"
+               formControlName="categoryId"
+               [items]="categories$ | async"
+               valueProp="id"
+               labelProp="name"></bd-dropdown>
+
+  <bd-search-input class="w-100 search-keyword"
+                   placeholder="Search..."
+                   formControlName="keyword"></bd-search-input>
+</form>
+
+<span *ngIf="loading"
+      class="spinner"></span>
+
+<bd-recently-used></bd-recently-used>
+
+<ng-container *ngIf="(icons$ | async) as icons">
+  <h3 class="mb-2"
+      *ngIf="!loading">{{icons.length}} {{DataHelper.hasUnit(icons.length) ? 'icon' : 'icons'}} available</h3>
+
+  <div class="icons-list-wrapper">
+    <div class="d-flex flex-wrap icons-list">
+      <div class="icon-item"
+           *ngFor="let icon of icons; let i = index; trackBy: trackIconsFn">
+        <bd-icon [icon]="icon"
+                 [title]="icon.name"
+                 (click)="setIcon(icon)"></bd-icon>
+      </div>
+    </div>
+  </div>
+</ng-container>

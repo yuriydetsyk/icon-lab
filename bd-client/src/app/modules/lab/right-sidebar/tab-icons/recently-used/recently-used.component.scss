@@ -1,0 +1,28 @@
+@import '../../../../../../assets/styles/variables';
+
+#recently-used {
+  background-color: $background;
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+
+  .scroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-width: 100%;
+  }
+
+  .icon-wrapper {
+    margin: 0 0.5rem;
+    overflow: visible;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    ::ng-deep {
+      .icon:not(.icon-premium) {
+        background-color: transparent;
+      }
+    }
+  }
+}

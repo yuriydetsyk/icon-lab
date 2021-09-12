@@ -1,0 +1,64 @@
+@import '../../../../assets/styles/variables';
+
+:host {
+  display: inline-flex;
+
+  .search-input-wrapper {
+    position: relative;
+
+    .search-icon {
+      position: absolute;
+      left: 0.25rem;
+      top: 0.25rem;
+    }
+
+    .search-input {
+      background-color: $violet-20;
+      border: 1px solid transparent;
+      font-size: 0.875rem;
+      font-weight: normal;
+      color: $violet-100;
+      padding: 0 1.75rem 0 2.5rem;
+      min-width: 160px;
+      width: 100%;
+      height: 40px;
+
+      &.hover,
+      &:hover {
+        color: $violet-100;
+
+        & + .search-clear {
+          visibility: visible;
+        }
+      }
+
+      &.active,
+      &:active,
+      &:focus {
+        background-color: $white;
+        border-color: $yellow;
+        color: $violet-100;
+
+        & + .search-clear {
+          visibility: visible;
+        }
+      }
+    }
+
+    .search-clear {
+      background-color: $violet-80;
+      border: 0;
+      position: absolute;
+      right: 0.5rem;
+      top: 0.5rem;
+      width: 24px;
+      height: 24px;
+      visibility: hidden;
+
+      &.hover,
+      &:hover {
+        background-color: $violet-100;
+      }
+    }
+  }
+}

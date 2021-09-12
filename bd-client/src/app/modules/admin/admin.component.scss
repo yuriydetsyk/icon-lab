@@ -1,0 +1,11 @@
+@import '../../../assets/styles/variables';
+
+.header-wrapper {
+  background-color: $background;
+  border-bottom: 1px solid $lightgrey;
+  z-index: 10;
+}
+
+.content-wrapper {
+  padding-top: 10rem;
+}

@@ -1,0 +1,401 @@
+@import './variables';
+
+/* General */
+* {
+  &:focus {
+    outline: none;
+  }
+
+  &::selection {
+    background: $violet-20;
+  }
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+}
+
+body {
+  background-image: linear-gradient(180deg, $background 0%, $light 100%);
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 auto;
+  overflow-x: hidden;
+  min-height: 100%;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $violet-20;
+  border-radius: 0.5rem;
+
+  &:hover {
+    background: $violet-60;
+  }
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $yellow;
+  font-weight: bold;
+  margin-bottom: 1rem;
+
+  &.dashed {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+
+    &::before,
+    &::after {
+      border-bottom: 1px solid $violet-20;
+      content: '';
+      width: 100%;
+      height: 1px;
+    }
+
+    &::before {
+      margin-right: 1rem;
+    }
+
+    &::after {
+      margin-left: 1rem;
+    }
+
+    &.left {
+      &::before {
+        width: 3.5rem;
+      }
+
+      &::after {
+        content: none;
+      }
+    }
+
+    &.right {
+      margin-left: 0;
+      &::before {
+        content: none;
+      }
+    }
+  }
+}
+
+h1,
+.h1 {
+  color: $violet-100;
+  font-size: 1.5rem;
+
+  &.dashed {
+    font-size: 3rem;
+    margin-bottom: 4rem;
+  }
+}
+h2,
+.h2 {
+  color: $violet-100;
+  font-size: 1.125rem;
+}
+h3 {
+  color: $violet-80;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Labels & Inputs */
+label {
+  color: $blue;
+  display: inline-flex;
+  font-size: 0.625rem;
+  margin: 0;
+
+  &[for] {
+    cursor: pointer;
+  }
+}
+
+input {
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  color: $violet-100;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 0.75rem 1rem;
+  height: 48px;
+  width: 208px;
+  min-width: 72px;
+
+  &.hover,
+  &:hover {
+    background-color: $violet-20;
+  }
+
+  &.active,
+  &:active,
+  &:focus {
+    background-color: $white;
+    border-color: $yellow;
+  }
+
+  &::-webkit-input-placeholder {
+    color: $violet-80;
+  }
+
+  &.text-small {
+    font-size: 1rem;
+  }
+}
+
+/* Icons */
+$iconNames: 'collection', 'comment', 'copy', 'cross', 'cross-circle', 'layout-single', 'layout-bottom-right',
+  'layout-top-right', 'layout-bottom-left', 'mail', 'pencil', 'search', 'search-active', 'star', 'star-filled', 'lab',
+  'home', 'support', 'rotate', 'dropdown-arrow';
+%icon-shared {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  cursor: pointer;
+  display: inline-flex;
+
+  @each $iconName in $iconNames {
+    &.icon-#{$iconName} {
+      -webkit-mask-image: url('../images/#{$iconName}.svg');
+      mask-image: url('../images/#{$iconName}.svg');
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+
+    &.hicon-#{$iconName} {
+      &.hover,
+      &:hover {
+        -webkit-mask-image: url('../images/#{$iconName}.svg');
+        mask-image: url('../images/#{$iconName}.svg');
+      }
+    }
+
+    &.aicon-#{$iconName} {
+      &.active,
+      &:active,
+      &:focus {
+        -webkit-mask-image: url('../images/#{$iconName}.svg');
+        mask-image: url('../images/#{$iconName}.svg');
+      }
+    }
+  }
+}
+
+.icon {
+  @extend %icon-shared;
+  background-color: $violet-80;
+  width: 2rem;
+  height: 2rem;
+
+  &.hover,
+  &:hover {
+    background-color: $violet-100;
+  }
+
+  &.active,
+  &:active,
+  &:focus {
+    background-color: $yellow;
+  }
+
+  &.layout {
+    background-color: $violet-40;
+
+    &.hover,
+    &:hover {
+      background-color: $violet-60;
+    }
+
+    &.active,
+    &:active,
+    &:focus {
+      background-color: $yellow;
+    }
+  }
+}
+
+/* Buttons */
+.btn {
+  background-color: transparent;
+  border: none;
+  color: $violet-80;
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.75rem 1rem;
+  box-shadow: -4px -4px 8px $white, 4px 4px 8px $violet-40;
+  min-width: 80px;
+  height: 48px;
+  border-radius: 0.5rem;
+
+  &:not(:disabled):not(.disabled) {
+    &.hover,
+    &:hover,
+    &:focus {
+      background-color: $light;
+      color: $violet-100;
+      box-shadow: -4px -4px 8px $white, 4px 4px 8px $violet-40;
+    }
+
+    &.active,
+    &:active,
+    &:active:focus,
+    &.active:focus {
+      background-color: transparent;
+      color: $violet-100;
+      box-shadow: -1px -1px 2px $white, 1px 1px 2px $violet-40;
+    }
+  }
+
+  &.btn-icon {
+    font-size: 0.625rem;
+    width: 72px;
+    height: 72px;
+    padding: 0.875rem 0.5rem;
+
+    &::before {
+      @extend %icon-shared;
+      width: 1.5rem;
+      height: 1.5rem;
+      padding-right: 20px;
+      margin: 0 auto 0.25rem;
+      background-color: $violet-60;
+      content: '';
+    }
+
+    &:not(:disabled):not(.disabled) {
+      &.hover,
+      &:hover,
+      &:focus {
+        &::before {
+          background-color: $yellow;
+        }
+      }
+
+      &.active,
+      &:active,
+      &:active:focus,
+      &.active:focus {
+        &::before {
+          background-color: $yellow;
+        }
+      }
+    }
+  }
+
+  &.btn-menu {
+    border-radius: 1rem;
+    border: none;
+    box-shadow: none;
+
+    &:not(:disabled):not(.disabled) {
+      &.hover,
+      &:hover {
+        background-color: transparent;
+        color: $violet-100;
+        box-shadow: none;
+      }
+
+      &.active,
+      &:active,
+      &:focus,
+      &:active:focus,
+      &.active:focus {
+        background-color: $background;
+        color: $violet-100;
+        box-shadow: -4px -4px 8px $white, 4px 4px 8px $violet-40;
+      }
+    }
+
+    &.btn-icon {
+      &::before {
+        display: flex;
+      }
+    }
+  }
+
+  &.btn-danger {
+    color: $white;
+    background-color: $red;
+    border-color: $red;
+
+    &::before {
+      background-color: $white;
+    }
+  }
+}
+
+/* Dropdowns */
+.dropdown {
+  .dropdown-toggle::after {
+    display: none;
+  }
+
+  .dropdown-menu {
+    &.opened {
+      display: block;
+    }
+
+    li {
+      cursor: pointer;
+    }
+  }
+}
+
+/* Logo */
+.app-logo {
+  background-image: url('../../assets/images/logo_bubble-doodle.svg');
+  background-size: 100%;
+  display: inline-block;
+  width: 72px;
+  height: 72px;
+}
+
+/* Loading Spinner */
+.spinner {
+  background-image: url('../images/spinner.jpg');
+  background-size: 100%;
+  display: flex;
+  width: 80px;
+  height: 80px;
+  margin: 2rem auto;
+}
+
+/* Toast */
+.toast {
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 5;
+
+  .toast-header {
+    justify-content: space-between;
+  }
+}
+
+/* Validation */
+.is-invalid {
+  border-color: $rose;
+  background-color: $lightrose;
+}

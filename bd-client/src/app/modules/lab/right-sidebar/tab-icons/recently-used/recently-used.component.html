@@ -1,0 +1,11 @@
+<h3 class="mb-2">Recently used icons</h3>
+<section id="recently-used"
+         class="d-flex align-items-center">
+  <div class="d-flex align-items-center scroll">
+    <bd-icon class="icon-wrapper"
+             *ngFor="let icon of recentIcons$ | async as recentIcons; let i = index; trackBy: trackIconsFn"
+             [icon]="icon"
+             [title]="icon.name"
+             (click)="setIcon(icon)"></bd-icon>
+  </div>
+</section>

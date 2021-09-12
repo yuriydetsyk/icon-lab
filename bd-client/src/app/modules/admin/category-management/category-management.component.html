@@ -1,0 +1,76 @@
+<button class="btn btn-primary btn-add"
+        (click)="isAddingCategory = true">Add Category</button>
+
+<ng-container *ngIf="(categories$ | async)?.length && !loading">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Updated At</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let category of categoryForms; let i = index">
+        <tr [formGroup]="category">
+          <td scope="row"
+              class="cell-id"
+              (click)="copyId(category.get('id').value)"><small title="Click to copy">{{ category.get('id').value }}</small></td>
+          <td class="cell-name">
+            <bd-text-input formControlName="name"
+                           [cssClass]="getInputCss(category.get('name'))"></bd-text-input>
+          </td>
+          <td>
+            <bd-text-input formControlName="description"
+                           [cssClass]="getInputCss(category.get('description'))"></bd-text-input>
+          </td>
+          <td>{{ category.get('createdAt').value | date:'short'}}</td>
+          <td>{{ (category.get('updatedAt').value | date:'short') || '-' }}</td>
+          <td class="cell-delete">
+            <button class="btn btn-danger btn-icon icon-cross"
+                    (click)="openDeleteModal(category.value)"></button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</ng-container>
+
+<span *ngIf="loading"
+      class="spinner"></span>
+
+<bd-notifications [items]="notifications$ | async"></bd-notifications>
+
+<bd-modal *ngIf="isAddingCategory"
+          modalTitle="Add new category"
+          (closed)="cancelAddingCategory()"
+          (saved)="addCategory()">
+  <form [formGroup]="newCategoryForm">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <bd-text-input inputId="name"
+                     formControlName="name"
+                     placeholder="Category name..."
+                     [cssClass]="getInputCss(newCategoryForm.get('name'))"></bd-text-input>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <bd-text-input inputId="description"
+                     formControlName="description"
+                     placeholder="Category description..."
+                     [cssClass]="getInputCss(newCategoryForm.get('description'))"></bd-text-input>
+    </div>
+  </form>
+</bd-modal>
+
+<bd-modal *ngIf="isDeleting"
+          modalTitle="Delete existing category"
+          (closed)="isDeleting = false"
+          (saved)="deleteCategory()">
+  <div class="container">
+    <p>Are you sure you want to delete category "{{deleteCategoryControl.value.name}}"?</p>
+  </div>
+</bd-modal>

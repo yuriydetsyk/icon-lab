@@ -1,0 +1,7 @@
+<div *ngIf="style"
+     class="d-flex align-items-end p-3 icon-style"
+     [class.active]="isActive(style)"
+     [style.background-image]="ImageHelper.getCssUrl(style.url)"
+     tabindex="0">
+  <h1 class="m-0">{{style.name}}</h1>
+</div>

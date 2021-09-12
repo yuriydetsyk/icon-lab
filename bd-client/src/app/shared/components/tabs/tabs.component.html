@@ -1,0 +1,23 @@
+<ng-container *ngFor="let tab of tabs">
+  <button *ngIf="tab.url"
+          class="btn btn-tab"
+          [class.hover]="tab.hover"
+          [class.active]="tab.active"
+          [class.snap-bottom]="snap === 'bottom'"
+          (mouseleave)="tab.hover = false"
+          [routerLink]="tab.url"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="process(tab.id)">
+    {{tab.title}}
+  </button>
+
+  <button *ngIf="!tab.url"
+          class="btn btn-tab"
+          [class.hover]="tab.hover"
+          [class.active]="tab.active"
+          (mouseleave)="tab.hover = false"
+          (click)="process(tab.id)">
+    {{tab.title}}
+  </button>
+</ng-container>

@@ -1,0 +1,22 @@
+<h2 class="dashed right">Backgrounds</h2>
+
+<span *ngIf="loading"
+      class="spinner"></span>
+
+<ng-container *ngIf="(backgrounds$ | async) as backgrounds">
+  <h3 *ngIf="!loading">{{backgrounds.length}} {{DataHelper.hasUnit(backgrounds.length) ? 'background' : 'backgrounds'}} available</h3>
+
+  <div class="backgrounds-list-wrapper">
+    <div class="d-flex flex-wrap backgrounds-list">
+      <button class="btn background-item"
+              (click)="clearBackground()">Clear</button>
+      <div class="background-item"
+           *ngFor="let background of backgrounds; let i = index; trackBy: trackBackgroundsFn">
+        <bd-icon [icon]="IconHelper.mapBackgroundToIcon(background)"
+                 [large]="true"
+                 [title]="background.name"
+                 (click)="setBackground(background)"></bd-icon>
+      </div>
+    </div>
+  </div>
+</ng-container>

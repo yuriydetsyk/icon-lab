@@ -1,0 +1,20 @@
+<div class="position-fixed w-100 header-wrapper">
+  <div class="d-flex justify-content-end align-items-center p-2 border-bottom">
+    <a class="mr-auto app-logo"
+       routerLink=""></a>
+    <h5 class="m-0 mr-3">Welcome, {{ username }}</h5>
+    <button class="btn btn-primary mr-3"
+            (click)="toWebsite()">Go to Website</button>
+    <button class="btn btn-primary"
+            (click)="logout()">Logout</button>
+  </div>
+
+  <bd-tabs [tabs]="adminTabs"
+           [snap]="'bottom'"
+           (tabChange)="onTabChange($event)"
+           class="pt-3"></bd-tabs>
+</div>
+
+<div class="d-flex flex-column content-wrapper">
+  <router-outlet></router-outlet>
+</div>

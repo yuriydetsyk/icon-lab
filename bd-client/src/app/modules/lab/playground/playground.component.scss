@@ -1,0 +1,17 @@
+@import '../../../../assets/styles/variables';
+
+.playground-wrapper {
+  border: 1px solid $violet-20;
+  border-radius: 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 340px;
+  height: 340px;
+
+  .playground-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

@@ -1,0 +1,47 @@
+<div #wrapper
+     class="d-flex align-items-center position-relative color-picker-wrapper"
+     (mouseenter)="hover = true"
+     (mouseleave)="hover = false"
+     [class.hover]="hover"
+     [class.active]="active">
+  <div #pickerButton
+       class="mr-2 color-picker-preview"
+       [style.background]="value"
+       (click)="toggleColorPicker()"></div>
+  <input #pickerInput
+         class="mr-2 text-center color-picker-label"
+         maxlength="7"
+         [class.hover]="hover || active"
+         [(colorPicker)]="value"
+         [cpPosition]="'top'"
+         [cpOutputFormat]="'hex'"
+         [cpFallbackColor]="fallbackColor"
+         [cpIgnoredElements]="[wrapper, pickerButton, pickerInput, copyButton, saveButton]"
+         [cpPosition]="'bottom'"
+         [cpWidth]="'226px'"
+         [cpPresetColors]="savedColors"
+         [cpPresetColorsClass]="'cp-preset-colors'"
+         [cpAddColorButton]="true"
+         [cpPresetEmptyMessageClass]="'cp-preset-empty-message'"
+         [cpRemoveColorButtonClass]="'cp-remove-color'"
+         [(cpToggle)]="colorPickerOpened"
+         (colorPickerOpen)="onPickerOpen()"
+         (colorPickerChange)="setColor($event)"
+         (cpPresetColorsChange)="changeSavedColors($event)"
+         [ngModel]="getFormattedColor(value)"
+         (ngModelChange)="setColor($event)"
+         (focus)="toggleColorPicker(true)" />
+  <div class="d-flex color-tools">
+    <span #copyButton
+          class="icon icon-copy tool-copy"
+          (click)="copy()"
+          title="Copy"
+          tabindex="0"></span>
+    <span #saveButton
+          class="icon tool-save"
+          [ngClass]="saveButtonClass"
+          (click)="processSavedState()"
+          [title]="isSaved ? 'Remove from Saved' : 'Add to Saved'"
+          tabindex="0"></span>
+  </div>
+</div>

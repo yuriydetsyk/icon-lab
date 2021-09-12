@@ -1,0 +1,9 @@
+<div class="d-flex flex-column">
+  <span *ngFor="let mode of layoutModes; let i = index"
+        class="icon icon-layout-{{mode}} layout mb-3"
+        title="{{'Layout ' + (i + 1)}}"
+        [class.active]="isActive(mode) | async"
+        (click)="setMode(mode)"
+        (keyup.enter)="setMode(mode)"
+        tabindex="0"></span>
+</div>

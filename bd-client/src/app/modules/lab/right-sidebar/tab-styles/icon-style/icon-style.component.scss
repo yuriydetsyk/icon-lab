@@ -1,0 +1,24 @@
+@import '../../../../../../assets/styles/variables';
+
+:host {
+  display: flex;
+
+  .icon-style {
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+    height: 176px;
+    transition: all 0.1s ease-in-out;
+
+    &:hover {
+      border-color: $blue;
+    }
+
+    &.active,
+    &:active,
+    &:focus {
+      border-color: $violet-60;
+    }
+  }
+}

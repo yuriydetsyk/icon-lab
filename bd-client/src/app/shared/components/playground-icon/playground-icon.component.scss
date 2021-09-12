@@ -1,0 +1,78 @@
+@import '../../../../assets/styles/variables';
+
+:host {
+  .svg-container {
+    border: 2px solid transparent;
+    box-sizing: content-box;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    position: absolute;
+
+    &-bg {
+      box-sizing: border-box;
+    }
+
+    &.hover,
+    &:hover {
+      border-color: $blue;
+    }
+
+    &.active,
+    &:active,
+    &:focus {
+      border-color: $violet-60;
+    }
+
+    .icon-tools {
+      position: absolute;
+      top: -2.5rem;
+      left: 0;
+      text-align: center;
+      width: 100%;
+
+      [class^='tool-'] {
+        min-width: 2rem;
+        width: 2rem;
+        height: 2rem;
+        margin: auto;
+        position: relative;
+      }
+
+      .btn.btn-icon {
+        background-color: $light;
+        border: 1px solid $violet-20;
+        border-radius: 100%;
+        min-width: 100%;
+        width: 100%;
+        height: 100%;
+        padding: 0.375rem;
+        box-shadow: 0.25rem 0.25rem 1rem $violet-40;
+
+        &::before {
+          margin: 0 auto;
+          padding: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        &:hover::before,
+        &:focus::before {
+          background-color: $violet-100;
+        }
+
+        &.active::before {
+          background-color: $yellow;
+        }
+      }
+
+      .rotation-angle {
+        font-size: 0.75rem;
+        position: absolute;
+        top: -1.25rem;
+        left: 0;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}

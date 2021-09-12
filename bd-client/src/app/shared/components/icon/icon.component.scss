@@ -1,0 +1,52 @@
+@import '../../../../assets/styles/variables';
+
+:host {
+  display: inline-flex;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+
+  &:hover .icon,
+  .icon.active {
+    background-color: $violet-20;
+    background-size: 70%;
+  }
+
+  .icon {
+    background-color: $background;
+    background-size: 60%;
+    background-position: center;
+    border-radius: 0.5rem;
+    width: 80px;
+    height: 80px;
+    transition: all 0.1s ease-in-out;
+
+    &.large {
+      width: 100%;
+      height: 176px;
+
+      @include w1300 {
+        width: 176px;
+      }
+    }
+  }
+
+  // TODO: implement real premium icon styling
+  .icon-premium-wrapper {
+    bottom: -2.5rem;
+    right: 0;
+    border-top: 2.5rem solid transparent;
+    border-bottom: 2.5rem solid transparent;
+    border-right: 2.5rem solid $lightpurple;
+
+    .icon-premium {
+      background-color: $yellow;
+      width: 1.5rem;
+      height: 1.5rem;
+      position: absolute;
+      left: 1rem;
+      top: -1.5rem;
+    }
+  }
+}

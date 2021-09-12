@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-between p-3 lab-actions">
+  <button class="btn"
+          (click)="saveToGallery()">Save to Gallery</button>
+
+  <div class="dropdown dropdown-export"
+       #exportDropdown>
+    <button class="btn btn-secondary dropdown-toggle"
+            type="button"
+            (click)="exportDropdownOpened = !exportDropdownOpened">
+      Export
+    </button>
+    <ul class="dropdown-menu"
+        [class.opened]="exportDropdownOpened">
+      <li><a class="dropdown-item"
+           (click)="export(IconType.Vector)">Export SVG</a></li>
+      <li><a class="dropdown-item"
+           (click)="export(IconType.Raster)">Export PNG</a></li>
+    </ul>
+  </div>
+</div>

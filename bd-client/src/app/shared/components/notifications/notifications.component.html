@@ -1,0 +1,9 @@
+<div class="p-3 toast mb-2 show"
+     *ngFor="let notification of items"
+     role="alert">
+  <div class="toast-header">
+    <strong class="mt-auto">{{notification.title}}</strong>
+    <small>{{notification.createdAt | date:'short'}}</small>
+  </div>
+  <div class="toast-body">{{notification.body}}</div>
+</div>

@@ -1,0 +1,92 @@
+<ng-container *ngIf="(icons$ | async)?.length && !loading">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Icon</th>
+        <th scope="col">Name</th>
+        <th scope="col">Tags <span>(split with ",")</span></th>
+        <th scope="col">URL</th>
+        <th scope="col">Type</th>
+        <th scope="col">Premium</th>
+        <th scope="col">Categories</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Updated At</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let icon of iconForms; let i = index">
+        <tr [formGroup]="icon">
+          <td scope="row"
+              class="cell-id"
+              (click)="copyId(icon.get('id').value)"><small title="Click to copy">{{ icon.get('id').value }}</small></td>
+          <td><img class="icon-preview"
+                 [src]="icon.get('url').value"></td>
+          <td class="cell-name">
+            <bd-text-input formControlName="name"
+                           [cssClass]="getInputCss(icon.get('name'))"></bd-text-input>
+          </td>
+          <td>
+            <textarea formControlName="tags"></textarea>
+          </td>
+          <td>
+            <bd-text-input formControlName="url"
+                           [cssClass]="getInputCss(icon.get('url'))"></bd-text-input>
+          </td>
+          <td class="cell-type">
+            <bd-dropdown formControlName="type"
+                         [items]="iconTypes"
+                         valueProp="id"
+                         labelProp="name"
+                         [cssClass]="getInputCss(icon.get('type'))"></bd-dropdown>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center align-items-center checkbox-wrapper"
+                 *ngIf="icon.value.type === IconType.Vector">
+              <input type="checkbox"
+                     class="checkbox mr-2"
+                     [value]="icon.value.isPremium"
+                     [checked]="icon.value.isPremium"
+                     formControlName="isPremium">
+            </div>
+          </td>
+          <td>
+            <div class="d-flex align-items-center checkbox-wrapper"
+                 *ngFor="let category of categories$ | async">
+              <input type="checkbox"
+                     class="checkbox mr-2"
+                     [value]="category"
+                     [checked]="hasCategory(icon.value, category)"
+                     (change)="toggleCategory(icon.value, category, icon)"
+                     id="category-checkbox-{{i}}-{{category.id}}">
+              <label for="category-checkbox-{{i}}-{{category.id}}">
+                {{category.name}}
+              </label>
+            </div>
+          </td>
+          <td><small>{{ icon.get('createdAt').value | date:'short'}}</small></td>
+          <td><small>{{ (icon.get('updatedAt').value | date:'short') || '-' }}</small></td>
+          <td class="cell-delete">
+            <button class="btn btn-danger btn-icon icon-cross"
+                    (click)="openDeleteModal(icon.value)"></button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</ng-container>
+
+<span *ngIf="loading"
+      class="spinner"></span>
+
+<bd-notifications [items]="notifications$ | async"></bd-notifications>
+
+<bd-modal *ngIf="isDeleting"
+          modalTitle="Delete existing icon"
+          (closed)="isDeleting = false"
+          (saved)="deleteIcon()">
+  <div class="container">
+    <p>Are you sure you want to delete icon "{{deleteIconControl.value.name}}"?</p>
+  </div>
+</bd-modal>

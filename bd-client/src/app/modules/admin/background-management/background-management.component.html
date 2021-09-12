@@ -1,0 +1,58 @@
+<ng-container *ngIf="(backgrounds$ | async)?.length && !loading">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Background</th>
+        <th scope="col">Name</th>
+        <th scope="col">Tags <span>(split with ",")</span></th>
+        <th scope="col">URL</th>
+        <th scope="col">Created At</th>
+        <th scope="col">Updated At</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let background of backgroundForms; let i = index">
+        <tr [formGroup]="background">
+          <td scope="row"
+              class="cell-id"
+              (click)="copyId(background.get('id').value)"><small title="Click to copy">{{ background.get('id').value }}</small></td>
+          <td><img class="background-preview"
+                 [src]="background.get('url').value"></td>
+          <td class="cell-name">
+            <bd-text-input formControlName="name"
+                           [cssClass]="getInputCss(background.get('name'))"></bd-text-input>
+          </td>
+          <td>
+            <textarea formControlName="tags"></textarea>
+          </td>
+          <td>
+            <bd-text-input formControlName="url"
+                           [cssClass]="getInputCss(background.get('url'))"></bd-text-input>
+          </td>
+          <td><small>{{ background.get('createdAt').value | date:'short'}}</small></td>
+          <td><small>{{ (background.get('updatedAt').value | date:'short') || '-' }}</small></td>
+          <td class="cell-delete">
+            <button class="btn btn-danger btn-icon icon-cross"
+                    (click)="openDeleteModal(background.value)"></button>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</ng-container>
+
+<span *ngIf="loading"
+      class="spinner"></span>
+
+<bd-notifications [items]="notifications$ | async"></bd-notifications>
+
+<bd-modal *ngIf="isDeleting"
+          modalTitle="Delete existing background"
+          (closed)="isDeleting = false"
+          (saved)="deleteBackground()">
+  <div class="container">
+    <p>Are you sure you want to delete background "{{deleteBackgroundControl.value.name}}"?</p>
+  </div>
+</bd-modal>

@@ -1,0 +1,78 @@
+@import '../../../../assets/styles/variables';
+
+.icon-preview {
+  width: 100px;
+}
+
+.table {
+  th,
+  td {
+    vertical-align: middle;
+
+    .checkbox-wrapper {
+      .checkbox {
+        width: 1.5rem;
+        min-width: 1.5rem;
+        height: 2rem;
+      }
+
+      label {
+        font-size: 1rem;
+        color: $violet-100;
+      }
+    }
+
+    textarea {
+      min-height: 60px;
+      max-height: 400px;
+    }
+  }
+  th span {
+    font-size: 0.8rem;
+  }
+
+  .cell-id {
+    cursor: pointer;
+    min-width: 80px;
+    max-width: 80px;
+    width: 80px;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cell-name {
+    min-width: 250px;
+    max-width: 250px;
+    width: 250px;
+  }
+
+  .cell-type {
+    min-width: 150px;
+    max-width: 150px;
+    width: 150px;
+
+    ::ng-deep {
+      .dropdown-toggle {
+        min-width: auto;
+      }
+    }
+  }
+
+  .cell-delete {
+    opacity: 0;
+
+    .btn-icon {
+      min-width: 32px;
+      width: 32px;
+      height: 32px;
+      padding: 0.25rem;
+    }
+  }
+
+  tr:hover {
+    .cell-delete {
+      opacity: 1;
+    }
+  }
+}

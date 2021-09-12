@@ -1,0 +1,85 @@
+@import '../../../assets/styles/variables';
+
+.app-logo {
+  width: 96px;
+  height: 96px;
+}
+
+.section {
+  &-buttons {
+    .menu-buttons > div {
+      padding-left: 5rem;
+    }
+  }
+
+  &-inputs {
+    background-color: $light;
+    border-radius: 0 2.5rem 2.5rem 0;
+    width: calc(100% - 35px);
+    padding: 1.5rem 3rem 3.5rem;
+
+    h6 {
+      margin-left: -3rem;
+    }
+  }
+
+  &-icons {
+    .layout-icons > div {
+      padding-left: 5rem;
+    }
+  }
+
+  &-constructor {
+    .selection-colors > div {
+      padding-left: 5rem;
+    }
+
+    .icon-constructor {
+      background-color: $light;
+      border-radius: 2.5rem 0 0 2.5rem;
+      padding: 1.5rem 3rem 3.5rem;
+      width: calc(50% + 3rem);
+
+      h6 {
+        margin-right: -3rem;
+      }
+    }
+  }
+
+  &-search {
+    & > div {
+      padding-left: 5rem;
+    }
+  }
+
+  &-tabs {
+    & > div {
+      height: 150px;
+      margin-bottom: 5rem;
+      padding-left: 5rem;
+      position: relative;
+
+      label {
+        width: 138px;
+      }
+
+      &::before {
+        content: '';
+        background-color: $light;
+        border-radius: 0 2.5rem 2.5rem 0;
+        width: 75%;
+        height: 120px;
+        position: absolute;
+        top: 25px;
+        left: 0;
+        z-index: -1;
+      }
+    }
+  }
+
+  &-dropdown {
+    & > div {
+      padding-left: 5rem;
+    }
+  }
+}
