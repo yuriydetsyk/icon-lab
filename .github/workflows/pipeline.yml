@@ -4,6 +4,8 @@
 name: IconLab API CI
 
 on:
+  push:
+    branches: [ master ]
   pull_request:
     branches: [ master ]
   release:
