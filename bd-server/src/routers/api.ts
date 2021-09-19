@@ -8,12 +8,6 @@ const router = Router({
   mergeParams: true,
 });
 
-router.get('/', (req: Request, res: Response) => {
-  res.send({
-    message: `Hello world! Serving from ${process.env.HOST}:${process.env.PORT}.`,
-  });
-});
-
 router.use('/icons', iconRouter);
 router.use('/backgrounds', backgroundRouter);
 router.use('/categories', categoryRouter);

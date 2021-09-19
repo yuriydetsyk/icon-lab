@@ -62,8 +62,8 @@ const credentials = { key: privateKey, cert: certificate };
 
 // Initialization & listening
 const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(parseInt(process.env.PORT, 10), process.env.HOST, () => {
+httpsServer.listen(parseInt(process.env.PORT, 10), '0.0.0.0', () => {
   const prefix = '[Icon Lab API]';
   // console.clear();
-  console.log(`${prefix} Started at https://${process.env.HOST}:${process.env.PORT}`);
+  console.log(`${prefix} Started at 0.0.0.0:${process.env.PORT}`);
 });
