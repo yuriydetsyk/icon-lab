@@ -36,4 +36,3 @@ jobs:
     - run: npm ci
     - run: npm run lint
     - run: npm run test:single
-    - run: npm run build
