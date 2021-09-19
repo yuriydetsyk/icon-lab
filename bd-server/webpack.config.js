@@ -1,10 +1,9 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   entry: './src/index.ts',
   target: 'node',
   output: {
@@ -25,14 +24,6 @@ module.exports = {
   },
   plugins: [new CleanWebpackPlugin()],
   optimization: {
-    minimize: true,
-    minimizer: [
-      new TerserPlugin({
-        terserOptions: {
-          keep_classnames: true,
-          keep_fnames: true,
-        },
-      }),
-    ],
+    minimize: false
   },
 };
