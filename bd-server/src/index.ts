@@ -6,6 +6,7 @@ import express from 'express';
 import session from 'express-session';
 import fs from 'fs';
 import https from 'https';
+import http from 'http';
 
 import { Database } from './database';
 import { apiRouter } from './routers/api';
@@ -55,15 +56,27 @@ app.use(session(sessionConfig));
 // Routers
 app.use('/api', apiRouter);
 
-// SSL & certificates
-const privateKey = fs.readFileSync('./certificates/icon-lab.key');
-const certificate = fs.readFileSync('./certificates/icon-lab.crt');
-const credentials = { key: privateKey, cert: certificate };
+const port = parseInt(process.env.PORT, 10) ?? 4800;
 
-// Initialization & listening
-const httpsServer = https.createServer(credentials, app);
-httpsServer.listen(parseInt(process.env.PORT, 10), '0.0.0.0', () => {
-  const prefix = '[Icon Lab API]';
-  // console.clear();
-  console.log(`${prefix} Started at 0.0.0.0:${process.env.PORT}`);
-});
+if (process.env.API_ENV === 'dev') {
+  // SSL & certificates
+  const privateKey = fs.readFileSync('./certificates/icon-lab.key');
+  const certificate = fs.readFileSync('./certificates/icon-lab.crt');
+  const credentials = { key: privateKey, cert: certificate };
+
+  // Initialization & listening
+  const httpsServer = https.createServer(credentials, app);
+  httpsServer.listen(port, '0.0.0.0', () => {
+    const prefix = '[Icon Lab API]';
+    // console.clear();
+    console.log(`${prefix} Started at 0.0.0.0:${port}`);
+  });
+} else {
+  // Initialization & listening
+  const httpServer = http.createServer(app);
+  httpServer.listen(port, () => {
+    const prefix = '[Icon Lab API]';
+    // console.clear();
+    console.log(`${prefix} Started at 0.0.0.0:${process.env.PORT}`);
+  });
+}
