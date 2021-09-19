@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "nodemon",
-    "start": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node -r ts-node/register src/index.ts",
+    "start": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && npx ts-node src/index.ts",
     "clean": "rimraf node_modules dist",
     "test:watch": "jest --watchAll",
     "test:single": "jest --coverage=true",
