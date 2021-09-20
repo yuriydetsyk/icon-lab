@@ -5,9 +5,11 @@ name: IconLab API CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [ master, 'release/**' ]
+    paths: 'bd-server/**'
   pull_request:
-    branches: [ master, release/** ]
+    branches: [ master ]
+    paths: 'bd-server/**'
   # release:
   #   types: [ published ]
 
