@@ -16,7 +16,8 @@
     "test:single": "npm run test:single:dry -- --collectCoverage",
     "test:file": "npm run test:single:dry -- -t",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy:ghp": "ng deploy --base-href=/icon-lab/bd-client/dist"
   },
   "husky": {
     "hooks": {
@@ -61,6 +62,7 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",
+    "angular-cli-ghpages": "^1.0.0-rc.2",
     "codelyzer": "^6.0.0",
     "eslint": "^7.6.0",
     "eslint-config-prettier": "^7.2.0",
