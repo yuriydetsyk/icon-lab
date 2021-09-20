@@ -8,20 +8,23 @@ on: workflow_dispatch
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./bd-client
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Inject slug/short variables
-        uses: rlespinasse/github-slug-action@v3.x
-      - name: Pushes to another repository
-        uses: yuriydetsyk/icon-lab@${{ env.GITHUB_HEAD_REF_SLUG }}
-        env:
-          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source-directory: 'bd-client/dist'
-          destination-github-username: 'yuriydetsyk'
-          destination-repository-name: 'icon-lab-ui-prod'
-          user-email: ${{ secrets.USER_EMAIL }}
-          commit-message: See ORIGIN_COMMIT from $GITHUB_REF
-          target-branch: main
-      - name: Test get variable exported by push-to-another-repository
-        run: echo $DESTINATION_CLONED_DIRECTORY
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: ./bd-client/package-lock.json
+    - run: npm ci
+    - run: npm run deploy:ghp:prod
