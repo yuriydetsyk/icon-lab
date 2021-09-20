@@ -5,8 +5,8 @@ import { config } from 'dotenv-flow';
 import express from 'express';
 import session from 'express-session';
 import fs from 'fs';
-import https from 'https';
 import http from 'http';
+import https from 'https';
 
 import { Database } from './database';
 import { apiRouter } from './routers/api';
@@ -69,7 +69,7 @@ if (process.env.API_ENV === 'dev') {
   httpsServer.listen(port, '0.0.0.0', () => {
     const prefix = '[Icon Lab API]';
     // console.clear();
-    console.log(`${prefix} Started at 0.0.0.0:${port}`);
+    console.log(`${prefix} Started at port ${port}`);
   });
 } else {
   // Initialization & listening
@@ -77,6 +77,6 @@ if (process.env.API_ENV === 'dev') {
   httpServer.listen(port, () => {
     const prefix = '[Icon Lab API]';
     // console.clear();
-    console.log(`${prefix} Started at 0.0.0.0:${process.env.PORT}`);
+    console.log(`${prefix} Started at port ${process.env.PORT}`);
   });
 }
