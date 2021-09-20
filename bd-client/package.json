@@ -17,7 +17,7 @@
     "test:file": "npm run test:single:dry -- -t",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:ghp": "ng deploy --base-href=/icon-lab/"
+    "deploy:ghp": "ng deploy --cname=dev.icon-lab.co"
   },
   "husky": {
     "hooks": {
