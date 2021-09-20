@@ -10,12 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Extract branch name
-        shell: bash
-        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-        id: extract_branch
       - name: Pushes to another repository
-        uses: yuriydetsyk/icon-lab@${{ steps.extract_branch.outputs.branch }}
+        uses: yuriydetsyk/icon-lab@${GITHUB_REF##*/}
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
