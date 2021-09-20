@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Pushes to another repository
-        uses: yuriydetsyk/icon-lab@${{ github.ref }}
+        uses: yuriydetsyk/icon-lab@${{ $GITHUB_REF }}
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
