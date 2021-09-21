@@ -4,10 +4,10 @@ import * as jwt from 'jsonwebtoken';
 
 import User from '../../db/models/user';
 import { addDays } from '../helpers/date.helper';
-import { RequestWithUser } from '../models/interfaces/request';
 import { Session } from '../models/interfaces/session';
 import { UserData } from '../models/interfaces/user-data';
 import { addSession, deleteSession, getSession, updateSession } from './session';
+import { setSessionUser } from './user';
 
 export async function getToken(req: Request) {
   const { email, password } = req.body;
@@ -25,7 +25,7 @@ export async function getToken(req: Request) {
       const token = jwt.sign({ user: userJson }, process.env.SESSION_SECRET);
       await addSession(getSignature(token), userJson);
 
-      (req as RequestWithUser).user = userJson;
+      setSessionUser(req, userJson);
       return token;
     } else {
       throw new Error('Invalid credentials');

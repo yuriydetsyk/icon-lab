@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
+import { setSessionUser } from '../api/user';
 
 import { RequestWithUser, SessionData } from '../models/interfaces/request';
 
@@ -14,11 +15,16 @@ export async function isAuthorized(req: Request, res: Response, next: NextFuncti
     return res.sendStatus(403);
   }
 
+  jwt.verify(token, process.env.SESSION_SECRET);
   const { user: payloadUser } = jwt.decode(token) as SessionData;
 
   const user = (req as RequestWithUser).user;
-  if (!user || payloadUser.id !== user.id) {
+  if (user && payloadUser.id !== user.id) {
     return res.sendStatus(403);
+  }
+
+  if (!user) {
+    setSessionUser(req, payloadUser);
   }
 
   return next();

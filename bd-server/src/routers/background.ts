@@ -3,6 +3,7 @@ import Background from '../../db/models/background';
 
 import { deleteBackground, getBackgrounds, patchBackground, uploadBackgrounds } from '../api/background';
 import { isAdmin } from '../middleware/is-admin';
+import { isAuthorized } from '../middleware/is-authorized';
 
 const router = Router({
   mergeParams: true,
@@ -19,7 +20,7 @@ router.get('/', async (_: Request, res: Response) => {
   }
 });
 
-router.post('/', isAdmin, async (req: Request, res: Response) => {
+router.post('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     const { processed } = await uploadBackgrounds(req);
     console.log(`Successfully uploaded ${processed} backgrounds`);
@@ -33,7 +34,7 @@ router.post('/', isAdmin, async (req: Request, res: Response) => {
   }
 });
 
-router.patch('/', isAdmin, async (req: Request, res: Response) => {
+router.patch('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     res.send(await patchBackground(req.body.bg as Partial<Background>));
   } catch (error) {
@@ -44,7 +45,7 @@ router.patch('/', isAdmin, async (req: Request, res: Response) => {
   }
 });
 
-router.delete('/:backgroundId', isAdmin, async (req: Request, res: Response) => {
+router.delete('/:backgroundId', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     await deleteBackground(req.params.backgroundId as string);
     res.sendStatus(204);

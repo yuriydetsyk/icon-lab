@@ -3,6 +3,7 @@ import { Request, Response, Router } from 'express';
 import Icon from '../../db/models/icon';
 import { deleteIcon, getIcons, parseRaster, parseSvg, patchIcon, uploadIcons } from '../api/icon';
 import { isAdmin } from '../middleware/is-admin';
+import { isAuthorized } from '../middleware/is-authorized';
 
 const router = Router({
   mergeParams: true,
@@ -19,7 +20,7 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/', isAdmin, async (req: Request, res: Response) => {
+router.post('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     const { processed } = await uploadIcons(req);
     console.log(`Successfully uploaded ${processed} icons`);
@@ -33,7 +34,7 @@ router.post('/', isAdmin, async (req: Request, res: Response) => {
   }
 });
 
-router.patch('/', isAdmin, async (req: Request, res: Response) => {
+router.patch('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     res.send(await patchIcon(req.body.icon as Partial<Icon>));
   } catch (error) {
@@ -44,7 +45,7 @@ router.patch('/', isAdmin, async (req: Request, res: Response) => {
   }
 });
 
-router.delete('/:iconId', isAdmin, async (req: Request, res: Response) => {
+router.delete('/:iconId', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     await deleteIcon(req.params.iconId as string);
     res.sendStatus(204);

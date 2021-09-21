@@ -9,6 +9,7 @@ import {
   patchCategory,
 } from '../api/category';
 import { isAdmin } from '../middleware/is-admin';
+import { isAuthorized } from '../middleware/is-authorized';
 
 const router = Router({
   mergeParams: true,
@@ -25,7 +26,7 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-router.post('/:categoryId/:iconId', isAdmin, async (req: Request, res: Response) => {
+router.post('/:categoryId/:iconId', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     await addIconCategory(req.body.iconId, req.params.categoryId);
     res.sendStatus(204);
@@ -37,7 +38,7 @@ router.post('/:categoryId/:iconId', isAdmin, async (req: Request, res: Response)
   }
 });
 
-router.post('/', isAdmin, async (req: Request, res: Response) => {
+router.post('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     await addCategory(req.body.category);
     res.sendStatus(204);
@@ -49,7 +50,7 @@ router.post('/', isAdmin, async (req: Request, res: Response) => {
   }
 });
 
-router.patch('/', isAdmin, async (req: Request, res: Response) => {
+router.patch('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     res.send(await patchCategory(req.body.category as Partial<Category>));
   } catch (error) {
@@ -60,7 +61,7 @@ router.patch('/', isAdmin, async (req: Request, res: Response) => {
   }
 });
 
-router.delete('/:categoryId', isAdmin, async (req: Request, res: Response) => {
+router.delete('/:categoryId', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     await deleteCategory(req.params.categoryId as string);
     res.sendStatus(204);
@@ -72,7 +73,7 @@ router.delete('/:categoryId', isAdmin, async (req: Request, res: Response) => {
   }
 });
 
-router.delete('/:categoryId/:iconId', isAdmin, async (req: Request, res: Response) => {
+router.delete('/:categoryId/:iconId', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
     await deleteIconCategory(req.params.iconId, req.params.categoryId);
     res.sendStatus(204);
