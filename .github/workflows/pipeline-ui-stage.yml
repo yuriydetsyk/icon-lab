@@ -35,7 +35,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
         cache-dependency-path: ./bd-client/package-lock.json
-    - run: npm ci
-    - run: npm run lint
-    - run: npm run test:single
-    - run: npm run deploy:ghp:stage
+    - name: Install NPM packages
+      run: npm ci
+    # - run: npm run lint
+    # - run: npm run test:single
+    - name: Deploy the app
+      env:
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
+      run: npm run deploy:ghp:stage
