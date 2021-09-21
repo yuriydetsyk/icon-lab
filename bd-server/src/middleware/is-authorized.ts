@@ -1,12 +1,23 @@
 import { NextFunction, Request, Response } from 'express';
+import * as jwt from 'jsonwebtoken';
 
-import User from '../../db/models/user';
-import { RequestWithSession } from '../models/interfaces/request';
+import { RequestWithUser, SessionData } from '../models/interfaces/request';
 
 export async function isAuthorized(req: Request, res: Response, next: NextFunction) {
-  const user: User = (req as RequestWithSession).session.user;
+  const authorizationHeader = req.headers.authorization;
+  if (!authorizationHeader) {
+    return res.sendStatus(403);
+  }
 
-  if (!user) {
+  const token = authorizationHeader.split('Bearer')[1].trim();
+  if (!token) {
+    return res.sendStatus(403);
+  }
+
+  const { user: payloadUser } = jwt.decode(token) as SessionData;
+
+  const user = (req as RequestWithUser).user;
+  if (!user || payloadUser.id !== user.id) {
     return res.sendStatus(403);
   }
 

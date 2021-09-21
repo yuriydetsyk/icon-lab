@@ -1,8 +1,13 @@
 import bcrypt from 'bcrypt';
-import { Request, Response } from 'express';
+import { Request } from 'express';
+import * as jwt from 'jsonwebtoken';
 
 import User from '../../db/models/user';
-import { CustomSessionData, RequestWithSession } from '../models/interfaces/request';
+import { addDays } from '../helpers/date.helper';
+import { RequestWithUser } from '../models/interfaces/request';
+import { Session } from '../models/interfaces/session';
+import { UserData } from '../models/interfaces/user-data';
+import { addSession, deleteSession, getSession, updateSession } from './session';
 
 export async function getToken(req: Request) {
   const { email, password } = req.body;
@@ -10,9 +15,18 @@ export async function getToken(req: Request) {
   try {
     const match = await bcrypt.compare(password, user.password);
     if (match) {
-      const session = (req as RequestWithSession).session;
-      session.user = user.toJSON() as any;
-      return { user: session.user };
+      const {
+        createdAt,
+        updatedAt,
+        ...userData
+      } = user.toJSON() as User;
+      const userJson = userData as UserData;
+
+      const token = jwt.sign({ user: userJson }, process.env.SESSION_SECRET);
+      await addSession(getSignature(token), userJson);
+
+      (req as RequestWithUser).user = userJson;
+      return token;
     } else {
       throw new Error('Invalid credentials');
     }
@@ -21,42 +35,34 @@ export async function getToken(req: Request) {
   }
 }
 
-export function deleteToken(req: Request, res: Response) {
-  return req.session.destroy((err) => {
-    if (err) {
-      throw err;
-    } else {
-      console.log('Session token has been destroyed');
-      res.status(204).send();
-    }
-  });
+export function deleteToken(token: string) {
+  return deleteSession(getSignature(token));
 }
 
-export function refreshToken(req: Request, res: Response) {
-  const session = (req as RequestWithSession).session;
-
-  if (!session.user) {
+export async function refreshToken(token: string): Promise<Session> {
+  if (!token) {
     throw new Error('Session token is missing');
   }
 
-  // TODO: implement token refreshing
-  return req.session.regenerate((err) => {
-    if (err) {
-      throw err;
-    } else {
-      console.log('Session token has been refreshed');
-      res.status(200).send();
-    }
-  });
+  jwt.verify(token, process.env.SESSION_SECRET);
+
+  const session = (await getSession(getSignature(token))).toJSON() as Session;
+  const updatedSession = { ...session, expires: addDays(session.expires, 7) };
+  await updateSession(updatedSession);
+  return getSession(getSignature(token));
 }
 
-export function verifyToken(req: Request): Partial<CustomSessionData> {
-  const user = (req as RequestWithSession).session.user;
-  let data: Partial<CustomSessionData>;
+export async function verifyToken(token: string) {
+  jwt.verify(token, process.env.SESSION_SECRET);
 
-  if (user) {
-    data = { ...data, user };
+  const dbRecord = await getSession(getSignature(token));
+  if (!dbRecord) {
+    throw new Error('Session token is missing');
   }
 
-  return data;
+  return token;
+}
+
+function getSignature(token: string) {
+  return (jwt.decode(token, { complete: true }) as { signature: string }).signature;
 }

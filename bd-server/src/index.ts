@@ -1,9 +1,7 @@
 import AWS from 'aws-sdk/global';
-import sessionStore from 'connect-session-sequelize';
 import cors from 'cors';
 import { config } from 'dotenv-flow';
 import express from 'express';
-import session from 'express-session';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
@@ -36,24 +34,6 @@ app.use(cors({ origin: /.*.?(bubble-doodle\.com|icon-lab\.co)/, credentials: tru
 const UPLOAD_SIZE_LIMIT = '500kb';
 app.use(express.urlencoded({ extended: true, limit: UPLOAD_SIZE_LIMIT }));
 app.use(express.json({ limit: UPLOAD_SIZE_LIMIT }));
-
-// Session storage
-const SequelizeStore = sessionStore(session.Store);
-const sessionConfig: session.SessionOptions = {
-  store: new SequelizeStore({ db: Database.sequelize }),
-  secret: process.env.SESSION_SECRET,
-  resave: false, // we support the touch method so per the express-session docs this should be set to false
-  saveUninitialized: false,
-  name: 'bd.connect.sid',
-  proxy: true,
-  cookie: {
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-    secure: true,
-    httpOnly: false,
-    sameSite: 'none'
-  },
-};
-app.use(session(sessionConfig));
 
 // Routers
 app.use('/api', apiRouter);

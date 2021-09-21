@@ -8,7 +8,7 @@ const router = Router({
 
 router.post('/', async (req: Request, res: Response) => {
   try {
-    res.json(await getToken(req));
+    res.json({ token: await getToken(req) });
   } catch (error) {
     console.error(error);
     res.status(401).send({
@@ -19,7 +19,8 @@ router.post('/', async (req: Request, res: Response) => {
 
 router.delete('/', async (req: Request, res: Response) => {
   try {
-    deleteToken(req, res);
+    await deleteToken(req.headers.authorization.split('Bearer')[1].trim());
+    res.status(204).send();
   } catch (error) {
     console.error(error);
     res.status(500).send({
@@ -30,7 +31,7 @@ router.delete('/', async (req: Request, res: Response) => {
 
 router.post('/refresh', async (req: Request, res: Response) => {
   try {
-    refreshToken(req, res);
+    res.json({ token: await refreshToken(req.headers.authorization.split('Bearer')[1].trim()) });
   } catch (error) {
     console.error(error);
     res.status(500).send({
@@ -41,7 +42,7 @@ router.post('/refresh', async (req: Request, res: Response) => {
 
 router.post('/verify', async (req: Request, res: Response) => {
   try {
-    res.json(await verifyToken(req));
+    res.json({ token: await verifyToken(req.headers.authorization.split('Bearer')[1].trim()) });
   } catch (error) {
     console.error(error);
     res.status(500).send({

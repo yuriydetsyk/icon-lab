@@ -4,11 +4,13 @@ import { Router } from '@angular/router';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { AuthService } from '../services/auth.service';
+
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   private readonly domainRegex = /.*.?(bubble-doodle\.com|icon-lab\.co|(bd-api-(dev|prod).herokuapp.com))/;
 
-  constructor(private readonly router: Router) {}
+  constructor(private readonly router: Router, private readonly authService: AuthService) { }
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     req = this.addAuthenticationToken(req);
@@ -22,7 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
     }
 
     return (request = request.clone({
-      withCredentials: true,
+      setHeaders: { Authorization: `Bearer ${this.authService.getToken()}` }
     }));
   }
 

@@ -14,7 +14,7 @@ import Icon from '../../db/models/icon';
 import { Database } from '../database';
 import { capitalize, convertToDashes } from '../helpers/text.helper';
 import { IconType } from '../models/enums/icon-type';
-import { RequestWithSession } from '../models/interfaces/request';
+import { RequestWithUser } from '../models/interfaces/request';
 import { appRoot } from '../utils/path';
 import { addIconCategory } from './category';
 
@@ -32,7 +32,7 @@ export async function getIcons(req: Request) {
   let whereClause: string;
   let groupClause = `GROUP BY ${columns}`;
 
-  const user = (req as RequestWithSession).session.user;
+  const user = (req as RequestWithUser).user;
   const renderPremiumIcons = !!user?.isAdmin; // TODO: configure premium access
   if (renderPremiumIcons) {
     whereClause = 'WHERE i.is_premium = true OR i.original_id IS NULL';

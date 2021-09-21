@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ClipboardModule } from 'ngx-clipboard';
-import { CookieService } from 'ngx-cookie-service';
 
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { LoadingInterceptor } from './interceptors/loading.interceptor';
@@ -11,7 +10,6 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
   declarations: [],
   imports: [CommonModule, HttpClientModule, ClipboardModule],
   providers: [
-    CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingInterceptor,
@@ -24,4 +22,4 @@ import { LoadingInterceptor } from './interceptors/loading.interceptor';
     },
   ],
 })
-export class CoreModule {}
+export class CoreModule { }
