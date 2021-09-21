@@ -56,7 +56,7 @@ app.use(session(sessionConfig));
 // Routers
 app.use('/api', apiRouter);
 
-const port = parseInt(process.env.PORT, 10) ?? 4800;
+const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 4800;
 
 if (process.env.API_ENV === 'dev') {
   // SSL & certificates
@@ -77,6 +77,6 @@ if (process.env.API_ENV === 'dev') {
   httpServer.listen(port, () => {
     const prefix = '[Icon Lab API]';
     // console.clear();
-    console.log(`${prefix} Started at port ${process.env.PORT}`);
+    console.log(`${prefix} Started at port ${port}`);
   });
 }

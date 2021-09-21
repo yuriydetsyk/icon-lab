@@ -1,6 +1,6 @@
 {
   "name": "bd-server",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.10",
   "description": "Icon Lab Web API",
   "main": "index.js",
   "author": "Chunkup",
