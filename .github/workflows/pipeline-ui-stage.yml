@@ -37,8 +37,10 @@ jobs:
         cache-dependency-path: ./bd-client/package-lock.json
     - name: Install NPM packages
       run: npm ci
-    # - run: npm run lint
-    # - run: npm run test:single
+    - name: Code linting
+      run: npm run lint
+    - name: Unit testing
+      run: npm run test:single
     - name: Deploy the app
       env:
         GH_TOKEN: ${{ secrets.GH_TOKEN }}

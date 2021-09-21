@@ -17,7 +17,7 @@
     "test:file": "npm run test:single:dry -- -t",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:ghp:stage": "ng deploy --cname=dev.icon-lab.co --build-target=bd-client:build:staging --no-silent --name=\"Yuriy Detsyk\" --email=yuron.sd@gmail.com",
+    "deploy:ghp:stage": "ng deploy --cname=dev.icon-lab.co --build-target=bd-client:build:staging --no-silent",
     "deploy:ghp:prod": "ng deploy --cname=icon-lab.co --build-target=bd-client:build:production --no-silent --repo=https://github.com/YuriyDetsyk/icon-lab-ui-prod.git"
   },
   "husky": {
