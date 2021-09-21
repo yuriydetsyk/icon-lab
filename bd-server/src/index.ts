@@ -9,7 +9,6 @@ import http from 'http';
 import https from 'https';
 
 import { Database } from './database';
-import { Env } from './models/enums/env';
 import { apiRouter } from './routers/api';
 
 // Load .env file
@@ -46,6 +45,7 @@ const sessionConfig: session.SessionOptions = {
   resave: false, // we support the touch method so per the express-session docs this should be set to false
   saveUninitialized: false,
   name: 'bd.connect.sid',
+  proxy: true,
   cookie: {
     maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     secure: true,
@@ -53,10 +53,6 @@ const sessionConfig: session.SessionOptions = {
     sameSite: 'none'
   },
 };
-// TODO: check if we need proxy handling
-if (process.env.API_ENV !== Env.Development) {
-  app.set('trust proxy', 1); // trust first proxy
-}
 app.use(session(sessionConfig));
 
 // Routers
