@@ -10,9 +10,9 @@ on:
   pull_request:
     branches: [ master ]
     paths: 'bd-client/**'
-  workflow_dispatch:
   # release:
   #   types: [ published ]
+  workflow_dispatch:
 
 jobs:
   build:

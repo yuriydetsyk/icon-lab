@@ -12,6 +12,7 @@ on:
     paths: 'bd-server/**'
   # release:
   #   types: [ published ]
+  workflow_dispatch:
 
 jobs:
   build:
