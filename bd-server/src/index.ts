@@ -9,6 +9,7 @@ import http from 'http';
 import https from 'https';
 
 import { Database } from './database';
+import { Env } from './models/enums/env';
 import { apiRouter } from './routers/api';
 
 // Load .env file
@@ -43,14 +44,19 @@ const sessionConfig: session.SessionOptions = {
   store: new SequelizeStore({ db: Database.sequelize }),
   secret: process.env.SESSION_SECRET,
   resave: false, // we support the touch method so per the express-session docs this should be set to false
-  saveUninitialized: true,
+  saveUninitialized: false,
   name: 'bd.connect.sid',
-  cookie: { maxAge: 7 * 24 * 60 * 60 * 1000, secure: true, httpOnly: false, sameSite: 'none' }, // 7 days
+  cookie: {
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    secure: true,
+    httpOnly: false,
+    sameSite: 'none'
+  },
 };
 // TODO: check if we need proxy handling
-// if (process.env.API_ENV !== Env.Development) {
-//   app.set('trust proxy', 1); // trust first proxy
-// }
+if (process.env.API_ENV !== Env.Development) {
+  app.set('trust proxy', 1); // trust first proxy
+}
 app.use(session(sessionConfig));
 
 // Routers
