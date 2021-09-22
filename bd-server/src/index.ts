@@ -11,6 +11,7 @@ import { apiRouter } from './routers/api';
 
 // Load .env file
 config();
+const test = 1;
 
 // DB (IIFE is used for the top-level await)
 (async () => {
