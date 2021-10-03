@@ -177,7 +177,9 @@ export class LabService implements OnDestroy {
     this.positionSettings$.next(newMap);
     this.icons$.next();
     // as selected icons could change, also update the recent icons list
-    this.recentIcons$.next([...newMap.values()].map((setting) => setting.icon));
+    this.recentIcons$.next(
+      [...newMap.values()].filter((item) => item.icon).map((item) => item.icon)
+    );
     this.rotationAngles$.next();
   }
 
@@ -193,7 +195,9 @@ export class LabService implements OnDestroy {
     this.positionSettings$.next(newMap);
     this.icons$.next();
     // as selected icons could change, also update the recent icons list
-    this.recentIcons$.next([...newMap.values()].map((data) => data.icon));
+    this.recentIcons$.next(
+      [...newMap.values()].filter((item) => item.icon).map((item) => item.icon)
+    );
     this.rotationAngles$.next();
   }
 
