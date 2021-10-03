@@ -37,7 +37,7 @@ export class LabComponent implements OnInit, OnDestroy {
     private readonly backgroundService: BackgroundService,
     private readonly layoutService: LayoutService,
     private readonly renderer: Renderer2
-  ) {}
+  ) { }
 
   public ngOnInit() {
     this.labService.filledElementsChanged
@@ -83,10 +83,6 @@ export class LabComponent implements OnInit, OnDestroy {
 
   public replaceSaved(colors: string[]) {
     this.labService.replaceSavedColors(colors);
-  }
-
-  public setBackgroundColor(color: string) {
-    this.backgroundService.setBackgroundColor(color);
   }
 
   private initColorListener(control: FormControl, index: string) {
