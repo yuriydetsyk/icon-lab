@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { BackgroundService } from '../../../../core/services/background.service';
 import { CategoryService } from '../../../../core/services/category.service';
 import { IconService } from '../../../../core/services/icon.service';
+import { LabService } from '../../../../core/services/lab.service';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { BackgroundDto } from '../../../../models/dto/background-dto';
 import { TabBackgroundsComponent } from './tab-backgrounds.component';
@@ -26,9 +27,10 @@ describe('TabIconsComponent', () => {
     });
     const backgroundServiceStub = () => ({
       getBackgrounds: () => of([]),
-      setBackground: () => {},
+      setBackground: () => { },
     });
     const categoryServiceStub = () => ({ getCategories: () => of([]) });
+    const labServiceStub = () => ({ clearPositionSetting: () => { } });
     TestBed.configureTestingModule({
       schemas: [NO_ERRORS_SCHEMA],
       imports: [FormsModule, ReactiveFormsModule],
@@ -38,6 +40,7 @@ describe('TabIconsComponent', () => {
         { provide: LoadingService, useFactory: loadingServiceStub },
         { provide: BackgroundService, useFactory: backgroundServiceStub },
         { provide: CategoryService, useFactory: categoryServiceStub },
+        { provide: LabService, useFactory: labServiceStub },
       ],
     });
     fixture = TestBed.createComponent(TabBackgroundsComponent);
