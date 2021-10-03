@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, refCount, shareReplay } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
 import { IconDto } from '../../models/dto/icon-dto';
@@ -15,7 +15,7 @@ export class IconService {
   private getIcons$: Observable<IconDto[]>;
   private filters: SearchFilters;
 
-  constructor(private readonly httpClient: HttpClient) {}
+  constructor(private readonly httpClient: HttpClient) { }
 
   public getIconFilters() {
     return this.filters;

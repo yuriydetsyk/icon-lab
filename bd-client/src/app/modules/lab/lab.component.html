@@ -10,17 +10,6 @@
       <bd-playground class="playground"></bd-playground>
 
       <div class="d-flex flex-column flex-grow-1">
-        <ng-container *ngIf="hasBackgroundPosition$ | async">
-          <h3 class="dashed right color-picker-heading">Background Color</h3>
-          <bd-color-picker class="mb-4"
-                           [ngModel]="backgroundColor$ | async"
-                           (ngModelChange)="setBackgroundColor($event)"
-                           [savedColors]="savedColors$ | async"
-                           (addToSaved)="addToSaved($event)"
-                           (removeFromSaved)="removeFromSaved($event)"
-                           (savedColorsChanged)="replaceSaved($event)"></bd-color-picker>
-        </ng-container>
-
         <ng-container *ngIf="hasSelectedIcon$ | async">
           <h3 class="dashed right color-picker-heading">Selection Colors</h3>
 
