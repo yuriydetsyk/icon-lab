@@ -4,7 +4,7 @@
 name: IconLab App CI + CD (STAGE)
 
 on:
-  pull_request:
+  push:
     branches: [master]
     paths: 'bd-client/**'
   workflow_dispatch:
