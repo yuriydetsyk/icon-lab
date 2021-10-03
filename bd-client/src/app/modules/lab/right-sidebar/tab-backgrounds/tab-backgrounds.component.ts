@@ -4,8 +4,10 @@ import { delay, takeUntil } from 'rxjs/operators';
 
 import { environment } from '../../../../../environments/environment';
 import { BackgroundService } from '../../../../core/services/background.service';
+import { LabService } from '../../../../core/services/lab.service';
 import { LoadingService } from '../../../../core/services/loading.service';
 import { BackgroundDto } from '../../../../models/dto/background-dto';
+import { IconPosition } from '../../../../models/enums/icon-position';
 import { DataHelper } from '../../../../shared/helpers/data.helper';
 import { IconHelper } from '../../../../shared/helpers/icon.helper';
 
@@ -21,7 +23,11 @@ export class TabBackgroundsComponent implements OnInit, OnDestroy {
   public IconHelper = IconHelper;
   public DataHelper = DataHelper;
 
-  constructor(private readonly loadingService: LoadingService, private readonly backgroundService: BackgroundService) {}
+  constructor(
+    private readonly loadingService: LoadingService,
+    private readonly backgroundService: BackgroundService,
+    private readonly labService: LabService,
+  ) { }
 
   public ngOnInit() {
     this.loadingService.loadingSub
@@ -47,5 +53,6 @@ export class TabBackgroundsComponent implements OnInit, OnDestroy {
   // TODO: improve
   public clearBackground() {
     this.backgroundService.setBackground(null);
+    this.labService.clearPositionSetting(IconPosition.Background);
   }
 }
