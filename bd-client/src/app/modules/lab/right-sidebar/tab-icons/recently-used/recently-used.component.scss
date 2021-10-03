@@ -19,6 +19,10 @@
       margin-left: 0;
     }
 
+    &:last-child {
+      margin-right: 0;
+    }
+
     ::ng-deep {
       .icon:not(.icon-premium) {
         background-color: transparent;
