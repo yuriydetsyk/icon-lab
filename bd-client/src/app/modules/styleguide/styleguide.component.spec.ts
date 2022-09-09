@@ -46,8 +46,8 @@ describe('StyleguideComponent', () => {
     it('makes expected calls', () => {
       const formBuilderStub = TestBed.inject(FormBuilder);
       const iconServiceStub = TestBed.inject(IconService);
-      spyOn(formBuilderStub, 'group').and.callThrough();
-      spyOn(iconServiceStub, 'getIcons').and.callThrough();
+      jest.spyOn(formBuilderStub, 'group');
+      jest.spyOn(iconServiceStub, 'getIcons');
       component.ngOnInit();
       expect(formBuilderStub.group).toHaveBeenCalled();
       expect(iconServiceStub.getIcons).toHaveBeenCalled();

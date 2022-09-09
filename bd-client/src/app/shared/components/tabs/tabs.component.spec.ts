@@ -26,7 +26,7 @@ describe('TabsComponent', () => {
   describe('ngOnChanges', () => {
     it('makes expected calls', () => {
       const simpleChangesStub: SimpleChanges = { tabs: { currentValue: [] } } as any;
-      spyOn(component, 'process').and.callThrough();
+      jest.spyOn(component, 'process');
       component.ngOnChanges(simpleChangesStub);
       expect(component.process).toHaveBeenCalled();
     });
@@ -44,7 +44,7 @@ describe('TabsComponent', () => {
     });
 
     it('should not process active tab, if it has not been changed', () => {
-      const tabChangeSpy = spyOn(component.tabChange, 'emit');
+      const tabChangeSpy = jest.spyOn(component.tabChange, 'emit');
       const selectedTabId = TabId.Avatars;
       component.tabs = [{ id: selectedTabId }, { id: TabId.Icons }] as NavTab[];
 

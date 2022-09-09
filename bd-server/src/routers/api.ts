@@ -10,7 +10,7 @@ const router = Router({
   mergeParams: true,
 });
 
-router.get('', (_, res) => res.json({ name: `Icon Lab API (${process.env.API_ENV})`, version }));
+router.get('', (_, res) => res.json({ name: `Icon Lab API (${process.env.ICONLAB_ENV})`, version }));
 
 router.use('/icons', iconRouter);
 router.use('/backgrounds', backgroundRouter);

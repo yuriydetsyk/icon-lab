@@ -16,7 +16,7 @@ describe('LoadingService', () => {
 
   describe('setLoading', () => {
     it('should enable/disable loading for a selected URL', () => {
-      const loadingSubSpy = spyOn(service.loadingSub, 'next');
+      const loadingSubSpy = jest.spyOn(service.loadingSub, 'next');
       const url = 'test-url';
       let state = true;
       service.setLoading(state, url);

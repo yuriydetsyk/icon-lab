@@ -96,7 +96,7 @@ describe('LabService', () => {
 
   describe('setIcon', () => {
     it('should set an icon', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
       const icon = { id: '1' } as IconDto;
       const iconsRes = new Map<IconPosition, IconDto>([[IconPosition.Center, icon]]);
 
@@ -117,7 +117,7 @@ describe('LabService', () => {
     }));
 
     it('should not set an icon, if position is missing', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
 
       service.setIcon({ id: '1' } as IconDto);
 
@@ -133,7 +133,7 @@ describe('LabService', () => {
     }));
 
     it('should not set an icon, if it has not been changed', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
       const icon = { id: '1' } as IconDto;
 
       service.setIcon(icon, IconPosition.Center);
@@ -152,12 +152,12 @@ describe('LabService', () => {
   });
 
   describe('Position settings', () => {
-    let saveToStorageSpy: jasmine.Spy;
+    let saveToStorageSpy: jest.SpyInstance;
     let settingItem: PositionSettings;
     let position: IconPosition;
 
     beforeEach(() => {
-      saveToStorageSpy = spyOn(storageService, 'set');
+      saveToStorageSpy = jest.spyOn(storageService, 'set');
       settingItem = {
         icon: { id: '1' } as IconDto,
         colors: [{ index: '1', color: Color.Yellow }],
@@ -336,7 +336,7 @@ describe('LabService', () => {
     }));
 
     it('should not set a color, if position is missing', () => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
 
       service.setColor(Color.Blue, '1');
 
@@ -383,7 +383,7 @@ describe('LabService', () => {
     }));
 
     it('should not set colors, if position is missing', () => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
 
       service.setColors([{ index: '1', color: Color.Light }], null);
 
@@ -458,7 +458,7 @@ describe('LabService', () => {
 
   describe('setLayoutMode', () => {
     it('should set a layout mode', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
       const layoutMode = LayoutMode.Single;
       const layoutModeRes: LayoutModeChangeData = {
         mode: layoutMode,
@@ -479,7 +479,7 @@ describe('LabService', () => {
     }));
 
     it('should not set a layout mode, if it has not been changed', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
       const layoutMode = LayoutMode.Single;
       const layoutModeRes: LayoutModeChangeData = {
         mode: layoutMode,
@@ -503,7 +503,7 @@ describe('LabService', () => {
 
   describe('addToSavedColors', () => {
     it('should save a color', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
       const color = Color.Yellow;
 
       service.addToSavedColors(color);
@@ -517,7 +517,7 @@ describe('LabService', () => {
     }));
 
     it('should not save a color, if it was already saved', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
       const color1 = Color.Yellow;
       const color2 = Color.Background;
 
@@ -540,7 +540,7 @@ describe('LabService', () => {
 
   describe('removeFromSavedColors', () => {
     it('should remove a saved color', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
       const color1 = Color.Yellow;
       const color2 = Color.Rose;
 
@@ -560,7 +560,7 @@ describe('LabService', () => {
 
   describe('replaceSavedColors', () => {
     it('should replace all saved colors', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
       const colorSet1 = [Color.Yellow, Color.Rose];
       const colorSet2 = [Color.Rose, Color.LightPurple];
 
@@ -598,7 +598,7 @@ describe('LabService', () => {
 
   describe('exportImage', () => {
     it('should export an SVG artboard', () => {
-      const exportSvgSpy = spyOn(imageService, 'exportSvg');
+      const exportSvgSpy = jest.spyOn(imageService, 'exportSvg');
 
       service.exportImage(IconType.Vector);
 
@@ -606,7 +606,7 @@ describe('LabService', () => {
     });
 
     it('should export a raster artboard', () => {
-      const exportRasterSpy = spyOn(imageService, 'exportRaster');
+      const exportRasterSpy = jest.spyOn(imageService, 'exportRaster');
 
       service.exportImage(IconType.Raster);
 
@@ -670,7 +670,7 @@ describe('LabService', () => {
       }));
 
       it('should not set the angle, if the position is missing', () => {
-        const storageServiceSpy = spyOn(storageService, 'set');
+        const storageServiceSpy = jest.spyOn(storageService, 'set');
         const angle = 15;
         const position = IconPosition.Center;
         service.setAngle(angle);
@@ -699,7 +699,7 @@ describe('LabService', () => {
       it('should not update the angle, if it has the same value', fakeAsync(() => {
         const angle = 15;
         const position = IconPosition.Center;
-        const storageServiceSpy = spyOn(storageService, 'set');
+        const storageServiceSpy = jest.spyOn(storageService, 'set');
 
         service.setAngle(angle, position);
 

@@ -7,7 +7,7 @@ const backgrounds = [
   {
     name: 'Folder',
     tags: ['folder'],
-    url: `https://img.icon-lab.co/backgrounds/${process.env.API_ENV}/folder.svg`,
+    url: `https://img.icon-lab.co/backgrounds/${process.env.ICONLAB_ENV}/folder.svg`,
   },
 ].map((item) => ({ ...item, created_at: createdAt }));
 

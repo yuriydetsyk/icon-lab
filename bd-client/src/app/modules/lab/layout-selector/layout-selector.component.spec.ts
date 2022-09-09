@@ -36,7 +36,7 @@ describe('LayoutSelectorComponent', () => {
     it('makes expected calls', () => {
       const labServiceStub = TestBed.inject(LabService);
       const layoutModeStub = LayoutMode.Single;
-      spyOn(labServiceStub, 'setLayoutMode').and.callThrough();
+      jest.spyOn(labServiceStub, 'setLayoutMode');
       component.setMode(layoutModeStub);
       expect(labServiceStub.setLayoutMode).toHaveBeenCalled();
     });

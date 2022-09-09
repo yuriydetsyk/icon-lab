@@ -22,7 +22,6 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
             "assets": [
               "src/assets/images",
               {
@@ -32,7 +31,13 @@
               }
             ],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "staging": {
@@ -44,7 +49,6 @@
               ],
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -89,14 +93,15 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "bd-client:build",
             "host": "local.icon-lab.co",
-            "port": 443,
+            "port": 4801,
             "ssl": true,
             "sslKey": "./certificates/icon-lab.key",
             "sslCert": "./certificates/icon-lab.crt"
@@ -116,16 +121,8 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/assets/images",
-              {
-                "glob": "**/*",
-                "input": "src/assets/favicon/",
-                "output": "/"
-              }
-            ],
             "styles": ["src/styles.scss"],
             "scripts": []
           }

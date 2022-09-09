@@ -10,7 +10,7 @@ export async function patchCategory(category: Partial<Category>) {
 }
 
 export async function addCategory(category: Category) {
-  return await Category.create(category);
+  return await Category.create(category as Partial<Category>);
 }
 
 export async function addIconCategory(iconId: string, categoryId: string) {

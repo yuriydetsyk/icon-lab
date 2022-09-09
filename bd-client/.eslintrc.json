@@ -1,4 +1,10 @@
 {
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest/globals": true
+  },
   "root": true,
   "ignorePatterns": ["projects/**/*"],
   "overrides": [
@@ -14,7 +20,7 @@
         "plugin:@angular-eslint/template/process-inline-templates",
         "prettier"
       ],
-      "plugins": [],
+      "plugins": ["jest"],
       "rules": {
         "@angular-eslint/component-selector": [
           "error",
@@ -53,13 +59,21 @@
         ],
         // note you must disable the base rule as it can report incorrect errors
         "no-shadow": "off",
-        "@typescript-eslint/no-shadow": ["error"]
+        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/member-ordering": "off"
       }
     },
     {
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended", "prettier"],
-      "rules": {}
+      "rules": {
+        "@angular-eslint/template/eqeqeq": [
+          "error",
+          {
+            "allowNullOrUndefined": true
+          }
+        ]
+      }
     }
   ]
 }

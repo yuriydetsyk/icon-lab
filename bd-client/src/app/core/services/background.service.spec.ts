@@ -32,7 +32,7 @@ describe('BackgroundService', () => {
 
   describe('setBackgroundColor', () => {
     it('should set the background color', fakeAsync(() => {
-      const storageServiceSpy = spyOn(storageService, 'set');
+      const storageServiceSpy = jest.spyOn(storageService, 'set');
 
       const color = Color.Violet80;
       service.setBackgroundColor(color);
