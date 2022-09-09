@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MockComponent, MockComponents, MockPipe } from 'ng-mocks';
+import { MockComponents, MockPipe } from 'ng-mocks';
 import { of } from 'rxjs';
 import { BackgroundService } from '../../../core/services/background.service';
 import { IconService } from '../../../core/services/icon.service';
