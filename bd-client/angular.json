@@ -121,16 +121,8 @@
         "test": {
           "builder": "@angular-builders/jest:run",
           "options": {
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.spec.json",
-            "assets": [
-              "src/assets/images",
-              {
-                "glob": "**/*",
-                "input": "src/assets/favicon/",
-                "output": "/"
-              }
-            ],
             "styles": ["src/styles.scss"],
             "scripts": []
           }

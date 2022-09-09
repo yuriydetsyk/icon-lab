@@ -59,7 +59,7 @@ describe('TabIconsComponent', () => {
     it('makes expected calls', () => {
       const backgroundService = TestBed.inject(BackgroundService);
       const bgDtoStub = {} as BackgroundDto;
-      spyOn(backgroundService, 'setBackground').and.callThrough();
+      jest.spyOn(backgroundService, 'setBackground');
       component.setBackground(bgDtoStub);
       expect(backgroundService.setBackground).toHaveBeenCalled();
     });

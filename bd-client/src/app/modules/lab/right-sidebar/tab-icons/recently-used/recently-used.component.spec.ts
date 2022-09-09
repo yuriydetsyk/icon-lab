@@ -28,7 +28,7 @@ describe('RecentlyUsedComponent', () => {
     it('makes expected calls', () => {
       const labServiceStub = TestBed.inject(LabService);
       const iconDtoStub = {} as IconDto;
-      spyOn(labServiceStub, 'setIcon').and.callThrough();
+      jest.spyOn(labServiceStub, 'setIcon');
       component.setIcon(iconDtoStub);
       expect(labServiceStub.setIcon).toHaveBeenCalled();
     });

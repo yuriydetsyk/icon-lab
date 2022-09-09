@@ -25,8 +25,8 @@ describe('LoadingInterceptor', () => {
       const httpHandlerStub: HttpHandler = { handle: () => of() } as any;
       const httpRequestStub: HttpRequest<any> = { url: 'testurl' } as any;
       const loadingServiceStub: LoadingService = TestBed.inject(LoadingService);
-      spyOn(httpHandlerStub, 'handle').and.callThrough();
-      spyOn(loadingServiceStub, 'setLoading').and.callThrough();
+      jest.spyOn(httpHandlerStub, 'handle');
+      jest.spyOn(loadingServiceStub, 'setLoading');
       service.intercept(httpRequestStub, httpHandlerStub);
       expect(httpHandlerStub.handle).toHaveBeenCalled();
       expect(loadingServiceStub.setLoading).toHaveBeenCalledWith(true, httpRequestStub.url);
