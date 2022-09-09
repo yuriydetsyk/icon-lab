@@ -14,6 +14,8 @@ import { apiRouter } from './routers/api';
 })();
 
 // AWS
+process.env.AWS_ACCESS_KEY_ID = process.env.ICONLAB_AWS_ACCESS_KEY_ID;
+process.env.AWS_SECRET_ACCESS_KEY = process.env.ICONLAB_AWS_SECRET_ACCESS_KEY;
 AWS.config.update({
   region: 'eu-central-1',
   accessKeyId: process.env.ICONLAB_AWS_ACCESS_KEY_ID,
@@ -38,6 +40,7 @@ const port = process.env.ICONLAB_PORT ? parseInt(process.env.ICONLAB_PORT, 10) :
 
 // Initialization & listening
 let server: http.Server | https.Server;
+let hostname: string;
 
 if (process.env.ICONLAB_ENV === 'dev') {
   // SSL & certificates
@@ -46,11 +49,12 @@ if (process.env.ICONLAB_ENV === 'dev') {
   const credentials = { key: privateKey, cert: certificate };
 
   server = https.createServer(credentials, app);
+  hostname = 'local.icon-lab.co';
 } else {
   server = http.createServer(app);
 }
 
-server.listen(port, () => {
+server.listen(port, hostname, () => {
   const prefix = '[Icon Lab API]';
   console.log(`${prefix} Started at port ${port}`);
 });
