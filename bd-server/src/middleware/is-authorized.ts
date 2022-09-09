@@ -15,7 +15,7 @@ export async function isAuthorized(req: Request, res: Response, next: NextFuncti
     return res.sendStatus(403);
   }
 
-  jwt.verify(token, process.env.SESSION_SECRET);
+  jwt.verify(token, process.env.ICONLAB_SESSION_SECRET);
   const { user: payloadUser } = jwt.decode(token) as SessionData;
 
   const user = (req as RequestWithUser).user;

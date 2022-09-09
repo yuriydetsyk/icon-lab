@@ -1,25 +1,12 @@
-const config = require('dotenv-flow').config;
-const parse = require('pg-connection-string').parse;
-
-// Load .env file
-config();
-
-const dbConfig = parse(process.env.DATABASE_URL);
+const isProduction = process.env.ICONLAB_ENV !== 'dev';
 
 module.exports = {
-  username: dbConfig.user,
-  password: dbConfig.password,
-  database: dbConfig.database,
-  host: dbConfig.host,
-  port: dbConfig.port,
-  ssl: true,
+  username: process.env.ICONLAB_DB_USERNAME,
+  password: process.env.ICONLAB_DB_PASSWORD,
+  database: 'iconlab',
+  host: isProduction ? 'database' : '127.0.0.1',
+  port: process.env.ICONLAB_DB_PORT,
   dialect: 'postgres',
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  },
   migrationStorage: 'sequelize',
   migrationStorageTableName: 'sequelize_meta',
   seederStorage: 'sequelize',

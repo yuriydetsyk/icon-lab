@@ -22,7 +22,7 @@ export async function getToken(req: Request) {
       } = user.toJSON() as User;
       const userJson = userData as UserData;
 
-      const token = jwt.sign({ user: userJson }, process.env.SESSION_SECRET);
+      const token = jwt.sign({ user: userJson }, process.env.ICONLAB_SESSION_SECRET);
       await addSession(getSignature(token), userJson);
 
       setSessionUser(req, userJson);
@@ -44,7 +44,7 @@ export async function refreshToken(token: string): Promise<Session> {
     throw new Error('Session token is missing');
   }
 
-  jwt.verify(token, process.env.SESSION_SECRET);
+  jwt.verify(token, process.env.ICONLAB_SESSION_SECRET);
 
   const session = (await getSession(getSignature(token))).toJSON() as Session;
   const updatedSession = { ...session, expires: addDays(session.expires, 7) };
@@ -53,7 +53,7 @@ export async function refreshToken(token: string): Promise<Session> {
 }
 
 export async function verifyToken(token: string) {
-  jwt.verify(token, process.env.SESSION_SECRET);
+  jwt.verify(token, process.env.ICONLAB_SESSION_SECRET);
 
   const dbRecord = await getSession(getSignature(token));
   if (!dbRecord) {

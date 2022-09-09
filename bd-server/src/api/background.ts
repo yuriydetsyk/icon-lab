@@ -27,12 +27,12 @@ export function uploadBackgrounds(req: Request) {
   const insertions: Promise<void>[] = [];
   let processed = 0;
   const form = new Form();
-  const { AWS_IMG_BUCKET, API_ENV } = process.env;
+  const { ICONLAB_AWS_IMG_BUCKET, ICONLAB_ENV } = process.env;
 
   return new Promise<{ processed: number }>((resolve, reject) => {
     form.parse(req, async (_, __, data) => {
       const files: File[] = data.files || [];
-      const uploadParams: PutObjectRequest = { Bucket: AWS_IMG_BUCKET, Key: '', ACL: 'public-read' };
+      const uploadParams: PutObjectRequest = { Bucket: ICONLAB_AWS_IMG_BUCKET, Key: '', ACL: 'public-read' };
 
       for (const file of files) {
         const uuid = uuidv4();
@@ -49,7 +49,7 @@ export function uploadBackgrounds(req: Request) {
         const fileExtension = originalFileNameWithExtension[1];
         const fileName = `${uuid}.${fileExtension}`;
 
-        uploadParams.Key = `backgrounds/${API_ENV}/${fileName}`;
+        uploadParams.Key = `backgrounds/${ICONLAB_ENV}/${fileName}`;
         uploadParams.ContentType = file.headers['content-type'];
 
         insertions.push(
@@ -66,7 +66,7 @@ export function uploadBackgrounds(req: Request) {
                   await Background.create({
                     name: capitalize(originalFileName.replace(/-|_/g, ' '), true),
                     tags: [originalFileName],
-                    url: `https://${AWS_IMG_BUCKET}${sendData.Location.split(AWS_IMG_BUCKET)[1]}`,
+                    url: `https://${ICONLAB_AWS_IMG_BUCKET}${sendData.Location.split(ICONLAB_AWS_IMG_BUCKET)[1]}`,
                   });
 
                   processed++;

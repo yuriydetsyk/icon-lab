@@ -1,0 +1,27 @@
+version: '3.8'
+services:
+  database:
+    image: postgres:14.2-alpine
+    container_name: iconlab-database
+    environment:
+      - POSTGRES_DB=iconlab
+      - POSTGRES_USER=${ICONLAB_DB_USERNAME:?}
+      - POSTGRES_PASSWORD=${ICONLAB_DB_PASSWORD:?}
+      - PGUSER=iconlab
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - ${ICONLAB_DB_PORT:-5450}:5432
+    networks:
+      - iconlab_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  pgdata:
+    name: iconlab_database_${ICONLAB_ENV:-local}
+networks:
+  iconlab_network:
+    name: iconlab_network_${ICONLAB_ENV:-local}

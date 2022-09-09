@@ -96,9 +96,9 @@ export async function deleteIcon(iconId: string) {
   // });
 
   // if (generatedIcon) {
-  //   const { AWS_IMG_BUCKET, API_ENV } = process.env;
+  //   const { ICONLAB_AWS_IMG_BUCKET, ICONLAB_ENV } = process.env;
   //   const fileName = generatedIcon.url.split('/').slice(-1);
-  //   const deleteParams: DeleteObjectRequest = { Bucket: AWS_IMG_BUCKET, Key: `icons/${API_ENV}/${fileName}` };
+  //   const deleteParams: DeleteObjectRequest = { Bucket: ICONLAB_AWS_IMG_BUCKET, Key: `icons/${ICONLAB_ENV}/${fileName}` };
   //   await new Promise<void>((resolve, reject) => {
   //     try {
   //       s3.deleteObject(deleteParams, (e) => {
@@ -127,14 +127,14 @@ export async function deleteIcon(iconId: string) {
 export function parseSvg(fileName: string, isBackground = false) {
   const folderName = !isBackground ? 'icons' : 'backgrounds';
   const getParams: GetObjectRequest = {
-    Bucket: process.env.AWS_IMG_BUCKET,
-    Key: `${folderName}/${process.env.API_ENV}/${fileName}`,
+    Bucket: process.env.ICONLAB_AWS_IMG_BUCKET,
+    Key: `${folderName}/${process.env.ICONLAB_ENV}/${fileName}`,
   };
   return s3.getObject(getParams).createReadStream();
 }
 
 export async function parseRaster(fileName: string, includePrefix = true) {
-  const base64 = await imageToBase64(`https://${process.env.AWS_IMG_BUCKET}/icons/${process.env.API_ENV}/${fileName}`);
+  const base64 = await imageToBase64(`https://${process.env.ICONLAB_AWS_IMG_BUCKET}/icons/${process.env.ICONLAB_ENV}/${fileName}`);
   return `${includePrefix ? 'data:image/png;base64,' : ''}${base64}`;
 }
 
@@ -204,7 +204,7 @@ async function uploadIcon({
   categoryId?: string;
   overrideValues: Partial<Icon>;
 }) {
-  const AWS_IMG_BUCKET = process.env.AWS_IMG_BUCKET;
+  const imagesBucket = process.env.ICONLAB_AWS_IMG_BUCKET;
   const sendData = await uploadIconToS3({
     fPath: fPath,
     fName: fName,
@@ -218,7 +218,7 @@ async function uploadIcon({
   const icon = await Icon.create({
     name: capitalize(originalFileName.replace(/-|_/g, ' '), true),
     tags: [originalFileName],
-    url: `https://${AWS_IMG_BUCKET}${sendData.Location.split(AWS_IMG_BUCKET)[1]}`,
+    url: `https://${imagesBucket}${sendData.Location.split(imagesBucket)[1]}`,
     type: iconType,
     ...overrideValues,
   });
@@ -233,8 +233,8 @@ async function uploadIcon({
 }
 
 function uploadIconToS3({ fPath, fName, contentType }: { fPath: string; fName: string; contentType?: string }) {
-  const { AWS_IMG_BUCKET, API_ENV } = process.env;
-  const uploadParams: PutObjectRequest = { Bucket: AWS_IMG_BUCKET, Key: '', ACL: 'public-read' };
+  const { ICONLAB_AWS_IMG_BUCKET, ICONLAB_ENV } = process.env;
+  const uploadParams: PutObjectRequest = { Bucket: ICONLAB_AWS_IMG_BUCKET, Key: '', ACL: 'public-read' };
   const uuid = uuidv4();
 
   // Configure the file stream and obtain the upload parameters
@@ -248,7 +248,7 @@ function uploadIconToS3({ fPath, fName, contentType }: { fPath: string; fName: s
   const fileExtension = originalFileNameWithExtension[1];
   const fileName = `${uuid}.${fileExtension}`;
 
-  uploadParams.Key = `icons/${API_ENV}/${fileName}`;
+  uploadParams.Key = `icons/${ICONLAB_ENV}/${fileName}`;
   if (contentType) {
     uploadParams.ContentType = contentType;
   }

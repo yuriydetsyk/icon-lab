@@ -96,7 +96,7 @@
           "options": {
             "browserTarget": "bd-client:build",
             "host": "local.icon-lab.co",
-            "port": 443,
+            "port": 4801,
             "ssl": true,
             "sslKey": "./certificates/icon-lab.key",
             "sslCert": "./certificates/icon-lab.crt"

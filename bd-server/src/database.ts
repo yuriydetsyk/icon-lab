@@ -7,8 +7,8 @@ export class Database {
   public static schema = 'public';
 
   public static async connect() {
-    const { API_ENV, DATABASE_URL } = process.env;
-    const prefix = `[Icon Lab DB ${API_ENV.toUpperCase()}]`;
+    const { ICONLAB_ENV, ICONLAB_DB_USERNAME, ICONLAB_DB_PASSWORD, ICONLAB_DB_PORT } = process.env;
+    const prefix = `[Icon Lab DB ${ICONLAB_ENV.toUpperCase()}]`;
 
     if (this.sequelize) {
       console.warn(`${prefix} The connection already exists`);
@@ -16,7 +16,9 @@ export class Database {
     }
 
     try {
-      this.sequelize = this.getSequelizeInstance(DATABASE_URL);
+      const isProduction = process.env.ICONLAB_ENV !== 'dev';
+      const databaseUrl = `postgres://${ICONLAB_DB_USERNAME}:${ICONLAB_DB_PASSWORD}@${isProduction ? 'database' : '127.0.0.1'}:${ICONLAB_DB_PORT}/iconlab`;
+      this.sequelize = this.getSequelizeInstance(databaseUrl);
 
       await this.sequelize.authenticate();
       console.log(`${prefix} Connected at ${new Date().toLocaleString()}`);
@@ -27,14 +29,7 @@ export class Database {
 
   private static getSequelizeInstance(databaseUrl: string) {
     return new Sequelize(databaseUrl, {
-      ssl: true,
       dialect: 'postgres',
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-      },
       pool: {
         max: 5,
         min: 0,
