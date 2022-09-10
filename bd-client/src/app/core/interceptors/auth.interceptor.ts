@@ -8,7 +8,7 @@ import { AuthService } from '../services/auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  private readonly domainRegex = /.*.?(bubble-doodle\.com|icon-lab\.co|(bd-api-(dev|prod).herokuapp.com))/;
+  private readonly domainRegex = /.*.?(dev-api|dev).icon-lab.co)/;
 
   constructor(private readonly router: Router, private readonly authService: AuthService) { }
 
