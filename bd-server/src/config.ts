@@ -36,7 +36,7 @@ export const isProduction = getEnvValue<string>('ICONLAB_ENV', 'dev') !== 'dev';
 export const config: Config = {
   server: {
     env: getEnvValue('ICONLAB_ENV'),
-    port: getEnvValue('ICONLAB_PORT', 4800),
+    port: parseInt(getEnvValue('ICONLAB_PORT'), 10) ?? 4800,
     sessionSecret: getEnvValue('ICONLAB_SESSION_SECRET'),
   },
   aws: {

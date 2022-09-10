@@ -7,7 +7,7 @@ services:
       - POSTGRES_DB=iconlab
       - POSTGRES_USER=${ICONLAB_DB_USERNAME:?}
       - POSTGRES_PASSWORD=${ICONLAB_DB_PASSWORD:?}
-      - PGUSER=iconlab
+      - PGUSER=${ICONLAB_DB_USERNAME:?}
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
