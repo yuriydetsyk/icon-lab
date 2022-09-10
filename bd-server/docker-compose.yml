@@ -40,7 +40,7 @@ services:
       - ICONLAB_AWS_SECRET_ACCESS_KEY=${ICONLAB_AWS_SECRET_ACCESS_KEY:?}
       - ICONLAB_AWS_IMG_BUCKET=${ICONLAB_AWS_IMG_BUCKET:?}
     ports:
-      - ${ICONLAB_PORT:-8100}:80
+      - ${ICONLAB_PORT:-4800}:4800
     networks:
       - iconlab_network
     depends_on:

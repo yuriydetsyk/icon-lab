@@ -36,7 +36,7 @@ export const isProduction = getEnvValue<string>('ICONLAB_ENV', 'dev') !== 'dev';
 export const config: Config = {
   server: {
     env: getEnvValue('ICONLAB_ENV'),
-    port: parseInt(getEnvValue('ICONLAB_PORT'), 10) ?? 4800,
+    port: 4800,
     sessionSecret: getEnvValue('ICONLAB_SESSION_SECRET'),
   },
   aws: {
@@ -47,7 +47,7 @@ export const config: Config = {
   db: {
     database: 'iconlab',
     host: isProduction ? 'database' : '127.0.0.1',
-    port: parseInt(getEnvValue('ICONLAB_DB_PORT'), 10),
+    port: isProduction ? null : parseInt(getEnvValue('ICONLAB_DB_PORT'), 10),
     username: getEnvValue('ICONLAB_DB_USERNAME'),
     password: getEnvValue('ICONLAB_DB_PASSWORD'),
     migrationStorage: 'sequelize',
@@ -61,7 +61,6 @@ export const config: Config = {
       acquire: 10000,
       idle: 30000,
     },
-    storage: 'sequelize',
     logging: false,
   },
 };
