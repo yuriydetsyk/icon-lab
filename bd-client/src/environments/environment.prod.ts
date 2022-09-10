@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://bd-api-prod.herokuapp.com/api',
+  apiUrl: 'https://api.icon-lab.co/api',
 };
