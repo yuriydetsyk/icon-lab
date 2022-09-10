@@ -1,8 +1,8 @@
 const handleError = require('../helpers/console').handleError;
 
-const tableName = 'icons';
+const tableName = 'icon';
 const columnName = 'tags';
-const indexName = 'icons_tags_index';
+const indexName = 'icon_tags_index';
 
 module.exports = {
   /**

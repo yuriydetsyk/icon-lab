@@ -3,10 +3,10 @@ const DataTypes = require('sequelize').DataTypes;
 const timestampAttributes = require('../helpers/timestamps').timestampAttributes;
 const handleError = require('../helpers/console').handleError;
 
-const categoriesTableName = 'categories';
+const categoryTableName = 'category';
 
 module.exports = {
-  categoriesTableName,
+  categoryTableName,
   /**
    *
    * @param {import('sequelize').QueryInterface} queryInterface
@@ -15,7 +15,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
     return await queryInterface
-      .createTable(categoriesTableName, {
+      .createTable(categoryTableName, {
         id: {
           type: DataTypes.UUID,
           primaryKey: true,
@@ -38,6 +38,6 @@ module.exports = {
    * @param {import('sequelize').QueryInterface} queryInterface
    */
   down: async (queryInterface) => {
-    return await queryInterface.dropTable(categoriesTableName).catch(handleError);
+    return await queryInterface.dropTable(categoryTableName).catch(handleError);
   },
 };

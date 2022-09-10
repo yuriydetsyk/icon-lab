@@ -1,33 +1,33 @@
-import Category from '../../db/models/category';
-import IconCategory from '../../db/models/icon-category';
+import { CategoryModel } from '../../db/models/category';
+import { IconCategoryModel } from '../../db/models/icon-category';
 
 export async function getCategories() {
-  return await Category.findAll();
+  return await CategoryModel.findAll();
 }
 
-export async function patchCategory(category: Partial<Category>) {
-  return await Category.update(category, { where: { id: category.id } });
+export async function patchCategory(category: Partial<CategoryModel>) {
+  return await CategoryModel.update(category, { where: { id: category.id } });
 }
 
-export async function addCategory(category: Category) {
-  return await Category.create(category as Partial<Category>);
+export async function addCategory(category: CategoryModel) {
+  return await CategoryModel.create(category as Partial<CategoryModel>);
 }
 
 export async function addIconCategory(iconId: string, categoryId: string) {
-  return await IconCategory.create({
+  return await IconCategoryModel.create({
     iconId,
     categoryId,
   });
 }
 
 export async function deleteCategory(categoryId: string) {
-  return await Category.destroy({
+  return await CategoryModel.destroy({
     where: { id: categoryId },
   });
 }
 
 export async function deleteIconCategory(iconId: string, categoryId: string) {
-  return await IconCategory.destroy({
+  return await IconCategoryModel.destroy({
     where: { iconId, categoryId },
   });
 }

@@ -1,22 +1,34 @@
-import { Column, CreatedAt, ForeignKey, Model, Table, UpdatedAt } from 'sequelize-typescript';
-import Category from './category';
-import Icon from './icon';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 
-@Table({ tableName: 'icons_categories' })
-export default class IconCategory extends Model {
-  @ForeignKey(() => Icon)
-  @Column({ field: 'icon_id' })
+import { defaultModelAttributes, defaultModelOptions, InitModelAttributes } from './sequelize/shared';
+
+export class IconCategoryModel extends Model {
   public iconId: string;
-
-  @ForeignKey(() => Category)
-  @Column({ field: 'category_id' })
   public categoryId: string;
+}
+const attributes: InitModelAttributes<IconCategoryModel> = {
+  iconId: {
+    allowNull: false,
+    type: DataTypes.UUID,
+    field: 'icon_id',
+  },
+  categoryId: {
+    allowNull: false,
+    type: DataTypes.UUID,
+    field: 'category_id',
+  },
+  createdAt: defaultModelAttributes.createdAt,
+  updatedAt: defaultModelAttributes.updatedAt,
+};
 
-  @CreatedAt
-  @Column({ field: 'created_at' })
-  public createdAt: Date;
+export function initModel(sequelize: Sequelize): Model {
+  return (IconCategoryModel as any).init(attributes, {
+    sequelize,
+    ...defaultModelOptions('icon_category'),
+  });
+}
 
-  @UpdatedAt
-  @Column({ field: 'updated_at' })
-  public updatedAt?: Date;
+export function initAssociations(models: any) {
+  IconCategoryModel.belongsTo(models.IconModel);
+  IconCategoryModel.belongsTo(models.CategoryModel);
 }

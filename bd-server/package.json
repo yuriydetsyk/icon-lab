@@ -1,6 +1,6 @@
 {
   "name": "bd-server",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "Icon Lab Web API",
   "main": "index.js",
   "author": "Chunkup",
@@ -9,22 +9,18 @@
   "scripts": {
     "build": "webpack",
     "watch": "nodemon",
-    "start": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && node dist/index.js",
+    "start": "node -r ts-node/register/transpile-only ./src/index.ts",
     "clean": "rimraf node_modules dist",
     "test:watch": "jest --watchAll",
     "test:single": "jest --coverage=true",
     "lint": "eslint",
-    "sequelize": "sequelize",
-    "gen:migration": "sequelize migration:generate",
-    "gen:model": "sequelize model:generate",
-    "gen:seed": "sequelize seed:generate",
-    "migrate:init": "sequelize init:migrations",
     "migrate": "sequelize db:migrate",
-    "migrate:down": "sequelize db:migrate:undo",
-    "migrate:down:all": "sequelize db:migrate:undo:all",
     "migrate:seed": "sequelize db:seed:all",
-    "migrate:seed:down": "sequelize db:seed:undo",
-    "migrate:seed:down:all": "sequelize db:seed:undo:all"
+    "migrate:undo": "sequelize db:migrate:undo",
+    "migrate:undo:all": "sequelize db:migrate:undo:all",
+    "seed": "sequelize db:seed",
+    "seed:undo": "sequelize db:seed:undo",
+    "seed:undo:all": "sequelize db:seed:undo:all"
   },
   "engines": {
     "npm": ">=8.6.0",
@@ -54,7 +50,6 @@
     "reflect-metadata": "0.1.13",
     "require-main-filename": "2.0.0",
     "sequelize": "6.21.6",
-    "sequelize-typescript": "2.1.3",
     "svg2img": "1.0.0-beta.2",
     "tmp": "0.2.1",
     "uuid": "8.3.1"
@@ -88,7 +83,7 @@
     "nodemon": "2.0.19",
     "prettier": "2.7.1",
     "rimraf": "3.0.2",
-    "sequelize-cli": "6.4.1",
+    "sequelize-cli": "6.2.0",
     "ts-jest": "26.4.3",
     "ts-loader": "9.3.1",
     "webpack": "5.74.0",

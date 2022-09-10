@@ -4,21 +4,22 @@ import fs from 'fs';
 import { File, Form } from 'multiparty';
 import { v4 as uuidv4 } from 'uuid';
 
-import Background from '../../db/models/background';
+import { BackgroundModel } from '../../db/models/background';
+import { config } from '../config';
 import { capitalize } from '../helpers/text.helper';
 
 const s3 = new S3();
 
 export async function getBackgrounds() {
-  return await Background.findAll();
+  return await BackgroundModel.findAll();
 }
 
-export async function patchBackground(bg: Partial<Background>) {
-  return await Background.update(bg, { where: { id: bg.id } });
+export async function patchBackground(bg: Partial<BackgroundModel>) {
+  return await BackgroundModel.update(bg, { where: { id: bg.id } });
 }
 
 export async function deleteBackground(bgId: string) {
-  return await Background.destroy({
+  return await BackgroundModel.destroy({
     where: { id: bgId },
   });
 }
@@ -27,12 +28,11 @@ export function uploadBackgrounds(req: Request) {
   const insertions: Promise<void>[] = [];
   let processed = 0;
   const form = new Form();
-  const { ICONLAB_AWS_IMG_BUCKET, ICONLAB_ENV } = process.env;
-
   return new Promise<{ processed: number }>((resolve, reject) => {
     form.parse(req, async (_, __, data) => {
       const files: File[] = data.files || [];
-      const uploadParams: PutObjectRequest = { Bucket: ICONLAB_AWS_IMG_BUCKET, Key: '', ACL: 'public-read' };
+      const imgBucket = config.aws.imgBucket;
+      const uploadParams: PutObjectRequest = { Bucket: imgBucket, Key: '', ACL: 'public-read' };
 
       for (const file of files) {
         const uuid = uuidv4();
@@ -49,7 +49,7 @@ export function uploadBackgrounds(req: Request) {
         const fileExtension = originalFileNameWithExtension[1];
         const fileName = `${uuid}.${fileExtension}`;
 
-        uploadParams.Key = `backgrounds/${ICONLAB_ENV}/${fileName}`;
+        uploadParams.Key = `backgrounds/${config.server.env}/${fileName}`;
         uploadParams.ContentType = file.headers['content-type'];
 
         insertions.push(
@@ -63,10 +63,10 @@ export function uploadBackgrounds(req: Request) {
                 console.log('Upload Success', sendData.Location);
 
                 try {
-                  await Background.create({
+                  await BackgroundModel.create({
                     name: capitalize(originalFileName.replace(/-|_/g, ' '), true),
                     tags: [originalFileName],
-                    url: `https://${ICONLAB_AWS_IMG_BUCKET}${sendData.Location.split(ICONLAB_AWS_IMG_BUCKET)[1]}`,
+                    url: `https://${imgBucket}${sendData.Location.split(imgBucket)[1]}`,
                   });
 
                   processed++;

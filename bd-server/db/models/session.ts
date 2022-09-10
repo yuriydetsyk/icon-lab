@@ -1,21 +1,34 @@
-import { Column, CreatedAt, Model, Table, UpdatedAt } from 'sequelize-typescript';
+import { DataTypes, Model, Sequelize } from 'sequelize';
+import { defaultModelAttributes, defaultModelOptions, InitModelAttributes } from './sequelize/shared';
 
-@Table({ tableName: 'Session' })
-export default class Session extends Model {
-  @Column({ primaryKey: true })
+export class SessionModel extends Model {
   public sid: string;
-
-  @Column
   public expires: Date;
-
-  @Column
   public data: string;
-
-  @CreatedAt
-  @Column
   public createdAt: Date;
-
-  @UpdatedAt
-  @Column
   public updatedAt?: Date;
+}
+
+const attributes: InitModelAttributes<SessionModel> = {
+  ...defaultModelAttributes,
+  sid: {
+    type: DataTypes.STRING,
+    primaryKey: true,
+    allowNull: false,
+  },
+  expires: {
+    type: DataTypes.DATE,
+  },
+  data: {
+    type: DataTypes.TEXT,
+  },
+  createdAt: defaultModelAttributes.createdAt,
+  updatedAt: defaultModelAttributes.updatedAt,
+};
+
+export function initModel(sequelize: Sequelize): Model {
+  return (SessionModel as any).init(attributes, {
+    sequelize,
+    ...defaultModelOptions('Session'),
+  });
 }

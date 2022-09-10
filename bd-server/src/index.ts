@@ -4,6 +4,7 @@ import express from 'express';
 import fs from 'fs';
 import http from 'http';
 import https from 'https';
+import { config, isProduction } from './config';
 
 import { Database } from './database';
 import { apiRouter } from './routers/api';
@@ -14,12 +15,12 @@ import { apiRouter } from './routers/api';
 })();
 
 // AWS
-process.env.AWS_ACCESS_KEY_ID = process.env.ICONLAB_AWS_ACCESS_KEY_ID;
-process.env.AWS_SECRET_ACCESS_KEY = process.env.ICONLAB_AWS_SECRET_ACCESS_KEY;
+// process.env.AWS_ACCESS_KEY_ID = process.env.ICONLAB_AWS_ACCESS_KEY_ID;
+// process.env.AWS_SECRET_ACCESS_KEY = process.env.ICONLAB_AWS_SECRET_ACCESS_KEY;
 AWS.config.update({
   region: 'eu-central-1',
-  accessKeyId: process.env.ICONLAB_AWS_ACCESS_KEY_ID,
-  secretAccessKey: process.env.ICONLAB_AWS_SECRET_ACCESS_KEY,
+  accessKeyId: config.aws.accessKeyId,
+  secretAccessKey: config.aws.secretAccessKey,
 });
 
 // API instance
@@ -36,13 +37,11 @@ app.use(express.json({ limit: UPLOAD_SIZE_LIMIT }));
 // Routers
 app.use('/api', apiRouter);
 
-const port = process.env.ICONLAB_PORT ? parseInt(process.env.ICONLAB_PORT, 10) : 4800;
-
 // Initialization & listening
 let server: http.Server | https.Server;
 let hostname: string;
 
-if (process.env.ICONLAB_ENV === 'dev') {
+if (!isProduction) {
   // SSL & certificates
   const privateKey = fs.readFileSync('./certificates/icon-lab.key');
   const certificate = fs.readFileSync('./certificates/icon-lab.crt');
@@ -54,7 +53,7 @@ if (process.env.ICONLAB_ENV === 'dev') {
   server = http.createServer(app);
 }
 
-server.listen(port, hostname, () => {
+server.listen(config.server.port, hostname, () => {
   const prefix = '[Icon Lab API]';
-  console.log(`${prefix} Started at port ${port}`);
+  console.log(`${prefix} Started at port ${config.server.port}`);
 });

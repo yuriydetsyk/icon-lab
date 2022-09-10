@@ -2,10 +2,10 @@ const DataTypes = require('sequelize').DataTypes;
 
 const timestampAttributes = require('../helpers/timestamps').timestampAttributes;
 const handleError = require('../helpers/console').handleError;
-const iconsTableName = require('./1-create-icons-table').iconsTableName;
-const categoriesTableName = require('./2-create-categories-table').categoriesTableName;
+const iconTableName = require('./1-create-icons-table').iconTableName;
+const categoryTableName = require('./2-create-categories-table').categoryTableName;
 
-const iconCategoryTableName = 'icons_categories';
+const iconCategoryTableName = 'icon_category';
 
 module.exports = {
   iconCategoryTableName,
@@ -19,13 +19,13 @@ module.exports = {
         icon_id: {
           allowNull: false,
           type: DataTypes.UUID,
-          references: { model: iconsTableName, key: 'id' },
+          references: { model: iconTableName, key: 'id' },
           onDelete: 'CASCADE',
         },
         category_id: {
           allowNull: false,
           type: DataTypes.UUID,
-          references: { model: categoriesTableName, key: 'id' },
+          references: { model: categoryTableName, key: 'id' },
           onDelete: 'CASCADE',
         },
         ...timestampAttributes,

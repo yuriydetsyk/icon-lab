@@ -1,5 +1,5 @@
 const createdAtFn = require('../helpers/timestamps').createdAtFn;
-const tableName = require('../migrations/6-create-backgrounds-table').backgroundsTableName;
+const tableName = require('../migrations/6-create-backgrounds-table').backgroundTableName;
 const handleError = require('../helpers/console').handleError;
 
 const createdAt = createdAtFn();

@@ -1,10 +1,10 @@
-import Session from '../../db/models/session';
+import { SessionModel } from '../../db/models/session';
 import { UserData } from '../models/interfaces/user-data';
-import { Session as ISession } from '../models/interfaces/session';
+import { Session } from '../models/interfaces/session';
 import { addDays } from '../helpers/date.helper';
 
 export function addSession(sid: string, user: UserData) {
-  return Session.create({
+  return SessionModel.create({
     sid,
     expires: addDays(new Date(), 7),
     data: JSON.stringify(user)
@@ -12,14 +12,14 @@ export function addSession(sid: string, user: UserData) {
 }
 
 export function getSession(sid: string) {
-  return Session.findByPk(sid);
+  return SessionModel.findByPk(sid);
 }
 
-export function updateSession(data: Partial<ISession> & Pick<ISession, 'sid'>) {
-  return Session.update(data, { where: { sid: data.sid } });
+export function updateSession(data: Partial<Session> & Pick<Session, 'sid'>) {
+  return SessionModel.update(data, { where: { sid: data.sid } });
 }
 
 export function deleteSession(sid: string) {
-  return Session.destroy({ where: { sid } });
+  return SessionModel.destroy({ where: { sid } });
 }
 

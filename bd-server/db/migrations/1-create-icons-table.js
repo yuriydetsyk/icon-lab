@@ -3,10 +3,10 @@ const DataTypes = require('sequelize').DataTypes;
 const timestampAttributes = require('../helpers/timestamps').timestampAttributes;
 const handleError = require('../helpers/console').handleError;
 
-const iconsTableName = 'icons';
+const iconTableName = 'icon';
 
 module.exports = {
-  iconsTableName,
+  iconTableName,
   /**
    *
    * @param {import('sequelize').QueryInterface} queryInterface
@@ -15,7 +15,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.sequelize.query('CREATE EXTENSION IF NOT EXISTS "uuid-ossp"');
     return await queryInterface
-      .createTable(iconsTableName, {
+      .createTable(iconTableName, {
         id: {
           type: DataTypes.UUID,
           primaryKey: true,
@@ -46,6 +46,6 @@ module.exports = {
    * @param {import('sequelize').QueryInterface} queryInterface
    */
   down: async (queryInterface) => {
-    return await queryInterface.dropTable(iconsTableName).catch(handleError);
+    return await queryInterface.dropTable(iconTableName).catch(handleError);
   },
 };

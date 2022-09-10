@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import Background from '../../db/models/background';
+import { BackgroundModel } from '../../db/models/background';
 
 import { deleteBackground, getBackgrounds, patchBackground, uploadBackgrounds } from '../api/background';
 import { isAdmin } from '../middleware/is-admin';
@@ -36,7 +36,7 @@ router.post('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
 
 router.patch('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
-    res.send(await patchBackground(req.body.bg as Partial<Background>));
+    res.send(await patchBackground(req.body.bg as Partial<BackgroundModel>));
   } catch (error) {
     console.error(error);
     res.status(500).send({

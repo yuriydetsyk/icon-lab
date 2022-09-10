@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { version } from '../../package.json';
+import { config } from '../config';
 import { backgroundRouter } from './background';
 import { categoryRouter } from './category';
 import { iconRouter } from './icon';
@@ -10,7 +11,7 @@ const router = Router({
   mergeParams: true,
 });
 
-router.get('', (_, res) => res.json({ name: `Icon Lab API (${process.env.ICONLAB_ENV})`, version }));
+router.get('', (_, res) => res.json({ name: `Icon Lab API (${config.server.env})`, version }));
 
 router.use('/icons', iconRouter);
 router.use('/backgrounds', backgroundRouter);
