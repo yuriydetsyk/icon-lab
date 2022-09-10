@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { setSessionUser } from '../api/user';
+import { config } from '../config';
 
 import { RequestWithUser, SessionData } from '../models/interfaces/request';
 
@@ -15,7 +16,7 @@ export async function isAuthorized(req: Request, res: Response, next: NextFuncti
     return res.sendStatus(403);
   }
 
-  jwt.verify(token, process.env.ICONLAB_SESSION_SECRET);
+  jwt.verify(token, config.server.sessionSecret);
   const { user: payloadUser } = jwt.decode(token) as SessionData;
 
   const user = (req as RequestWithUser).user;

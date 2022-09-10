@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 
-import Icon from '../../db/models/icon';
+import { IconModel } from '../../db/models/icon';
 import { deleteIcon, getIcons, parseRaster, parseSvg, patchIcon, uploadIcons } from '../api/icon';
 import { isAdmin } from '../middleware/is-admin';
 import { isAuthorized } from '../middleware/is-authorized';
@@ -36,7 +36,7 @@ router.post('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
 
 router.patch('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
-    res.send(await patchIcon(req.body.icon as Partial<Icon>));
+    res.send(await patchIcon(req.body.icon as Partial<IconModel>));
   } catch (error) {
     console.error(error);
     res.status(500).send({

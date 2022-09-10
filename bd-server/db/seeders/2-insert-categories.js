@@ -1,5 +1,5 @@
 const createdAtFn = require('../helpers/timestamps').createdAtFn;
-const tableName = require('../migrations/2-create-categories-table').categoriesTableName;
+const tableName = require('../migrations/2-create-categories-table').categoryTableName;
 const handleError = require('../helpers/console').handleError;
 
 const createdAt = createdAtFn();

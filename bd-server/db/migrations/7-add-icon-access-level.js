@@ -1,7 +1,7 @@
 const handleError = require('../helpers/console').handleError;
 const DataTypes = require('sequelize').DataTypes;
 
-const tableName = 'icons';
+const tableName = 'icon';
 const isPremiumColumnName = 'is_premium';
 const originalIdColumnName = 'original_id';
 

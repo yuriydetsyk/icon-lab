@@ -1,5 +1,5 @@
 import { Request, Response, Router } from 'express';
-import Category from '../../db/models/category';
+import { CategoryModel } from '../../db/models/category';
 import {
   addCategory,
   addIconCategory,
@@ -52,7 +52,7 @@ router.post('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
 
 router.patch('/', isAuthorized, isAdmin, async (req: Request, res: Response) => {
   try {
-    res.send(await patchCategory(req.body.category as Partial<Category>));
+    res.send(await patchCategory(req.body.category as Partial<CategoryModel>));
   } catch (error) {
     console.error(error);
     res.status(500).send({

@@ -19,6 +19,29 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  api:
+    image: yuriydetsyk/icon-lab:${DEPLOY_TAG:-latest}
+    container_name: iconlab-api
+    restart: unless-stopped
+    build:
+      context: ./
+      target: production
+      dockerfile: ./Dockerfile
+    environment:
+      - NODE_ENV=production
+      - ICONLAB_DB_USERNAME=${ICONLAB_DB_USERNAME:?}
+      - ICONLAB_DB_PASSWORD=${ICONLAB_DB_PASSWORD:?}
+      - ICONLAB_DB_PORT=${ICONLAB_DB_PORT:?}
+      - ICONLAB_PORT=${ICONLAB_PORT:?}
+    ports:
+      - ${ICONLAB_PORT:-8100}:80
+    networks:
+      - iconlab_network
+    depends_on:
+      database:
+        condition: service_healthy
+    profiles: ["production"]
 volumes:
   pgdata:
     name: iconlab_database_${ICONLAB_ENV:-dev}

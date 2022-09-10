@@ -3,7 +3,7 @@ const DataTypes = require('sequelize').DataTypes;
 const timestampAttributes = require('../helpers/timestamps').timestampAttributes;
 const handleError = require('../helpers/console').handleError;
 
-const tableName = 'users';
+const tableName = 'user';
 
 module.exports = {
   tableName,

@@ -1,27 +1,42 @@
-import { Column, CreatedAt, Model, Table, UpdatedAt } from 'sequelize-typescript';
+import { DataTypes, Model, Sequelize } from 'sequelize';
+import { defaultModelAttributes, defaultModelOptions, InitModelAttributes } from './sequelize/shared';
 
-@Table({ tableName: 'users' })
-export default class User extends Model {
-  @Column
+export class UserModel extends Model {
+  public id: string;
   public email: string;
-
-  @Column
   public password: string;
-
-  @Column
   public isAdmin: boolean;
-
-  @Column
   public firstName?: string;
-
-  @Column
   public lastName?: string;
-
-  @CreatedAt
-  @Column({ field: 'created_at' })
   public createdAt: Date;
-
-  @UpdatedAt
-  @Column({ field: 'updated_at' })
   public updatedAt?: Date;
+}
+
+const attributes: InitModelAttributes<UserModel> = {
+  ...defaultModelAttributes,
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  isAdmin: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+  },
+  firstName: {
+    type: DataTypes.STRING,
+  },
+  lastName: {
+    type: DataTypes.STRING,
+  },
+};
+
+export function initModel(sequelize: Sequelize): Model {
+  return (UserModel as any).init(attributes, {
+    sequelize,
+    ...defaultModelOptions('user'),
+  });
 }

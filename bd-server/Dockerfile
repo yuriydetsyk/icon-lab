@@ -13,11 +13,11 @@ RUN npm ci --no-fund
 # 4. Copy the source code last, as it changes the most
 COPY . .
 
-# 7. Compile the code
-RUN npm run build
+# # 4a. Compile the code
+# RUN npm run build
 
 # 5. Start the application
 FROM base as production
-ENV NODE_PATH=./dist
+# ENV NODE_PATH=./dist
 ENV NODE_ENV=production
-CMD ["/bin/ash", "-c", "npm start"]
+CMD ["/bin/ash", "-c", "npm run migrate && npm run migrate:seed && npm start"]

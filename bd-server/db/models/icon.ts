@@ -1,38 +1,48 @@
-import { BelongsToMany, Column, CreatedAt, DataType, ForeignKey, Model, Table, UpdatedAt } from 'sequelize-typescript';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 
 import { IconType } from '../../src/models/enums/icon-type';
-import Category from './category';
-import IconCategory from './icon-category';
+import { CategoryModel } from './category';
+import { defaultModelAttributes, defaultModelOptions, InitModelAttributes } from './sequelize/shared';
 
-@Table({ tableName: 'icons' })
-export default class Icon extends Model {
-  @Column
+export class IconModel extends Model {
+  public id: string;
   public name: string;
-
-  @Column(DataType.ARRAY(DataType.STRING))
   public tags?: string[];
-
-  @Column
   public url: string;
-
-  @Column
   public type: IconType;
-
-  @BelongsToMany(() => Category, () => IconCategory)
-  public categories?: Category[];
-
-  @Column({ field: 'is_premium' })
+  public categories?: CategoryModel[];
   public isPremium: boolean;
-
-  @ForeignKey(() => Icon)
-  @Column({ field: 'original_id' })
   public originalId: string;
-
-  @CreatedAt
-  @Column({ field: 'created_at' })
   public createdAt: Date;
-
-  @UpdatedAt
-  @Column({ field: 'updated_at' })
   public updatedAt?: Date;
+}
+
+const attributes: InitModelAttributes<IconModel> = {
+  ...defaultModelAttributes,
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  tags: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+  },
+  url: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+};
+
+export function initModel(sequelize: Sequelize): Model {
+  return (IconModel as any).init(attributes, {
+    sequelize,
+    ...defaultModelOptions('icon'),
+  });
+}
+
+export function initAssociations(models: any) {
+  IconModel.belongsToMany(models.CategoryModel, { through: models.IconCategory });
 }

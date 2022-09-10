@@ -1,5 +1,5 @@
 const createdAtFn = require('../helpers/timestamps').createdAtFn;
-const tableName = require('../migrations/1-create-icons-table').iconsTableName;
+const tableName = require('../migrations/1-create-icons-table').iconTableName;
 const handleError = require('../helpers/console').handleError;
 
 const createdAt = createdAtFn();

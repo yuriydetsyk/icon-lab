@@ -1,8 +1,31 @@
+/**
+ * We utilize TS files from SequelizeCLI context. So we need `require('ts-node').register()`.
+ * But we must perform that only once despite of this file is executed upon each particular migration.
+ */
+registerTS();
+
 const path = require('path');
 
 module.exports = {
-  'config': path.resolve('config', 'database.config.js'),
-  'models-path': path.resolve('db', 'models'),
-  'seeders-path': path.resolve('db', 'seeders'),
-  'migrations-path': path.resolve('db', 'migrations')
+  'config': path.resolve('./src/config.ts'),
+  'models-path': path.resolve('./db/models'),
+  'seeders-path': path.resolve('./db/seeders'),
+  'migrations-path': path.resolve('./db/migrations'),
+  'env': 'dbConfig', // what `./src/config.ts` exports
+}
+
+/**
+* Requires and registers "ts-node" in singleton manner.
+* Reason: multiple requiring "ts-node" causes" Javascript: Out of memory" error.
+*/
+function registerTS() {
+  const isTsRegistered = Object.keys(require.cache)
+    .some((name) => {
+      return /ts-node/.test(name);
+    });
+
+  if (!isTsRegistered) {
+    // eslint-disable-next-line global-require
+    require('ts-node').register({ transpileOnly: true });
+  }
 }

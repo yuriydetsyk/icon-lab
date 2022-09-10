@@ -1,14 +1,16 @@
-import { Sequelize } from 'sequelize-typescript';
+import { Sequelize } from 'sequelize';
 
-import { Models } from '../db/models';
+import * as Models from '../db/models';
+import { ModelDefinition, ModelDefinitionContext } from '../db/models/sequelize/shared';
+import { config, dbConfig } from './config';
 
 export class Database {
   public static sequelize: Sequelize;
   public static schema = 'public';
+  private static readonly models: ModelDefinitionContext = {};
 
   public static async connect() {
-    const { ICONLAB_ENV, ICONLAB_DB_USERNAME, ICONLAB_DB_PASSWORD, ICONLAB_DB_PORT } = process.env;
-    const prefix = `[Icon Lab DB ${ICONLAB_ENV.toUpperCase()}]`;
+    const prefix = `[Icon Lab DB ${config.server.env.toUpperCase()}]`;
 
     if (this.sequelize) {
       console.warn(`${prefix} The connection already exists`);
@@ -16,9 +18,7 @@ export class Database {
     }
 
     try {
-      const isProduction = process.env.ICONLAB_ENV !== 'dev';
-      const databaseUrl = `postgres://${ICONLAB_DB_USERNAME}:${ICONLAB_DB_PASSWORD}@${isProduction ? 'database' : '127.0.0.1'}:${ICONLAB_DB_PORT}/iconlab`;
-      this.sequelize = this.getSequelizeInstance(databaseUrl);
+      this.sequelize = new Sequelize(dbConfig);
 
       await this.sequelize.authenticate();
       console.log(`${prefix} Connected at ${new Date().toLocaleString()}`);
@@ -27,18 +27,24 @@ export class Database {
     }
   }
 
-  private static getSequelizeInstance(databaseUrl: string) {
-    return new Sequelize(databaseUrl, {
-      dialect: 'postgres',
-      pool: {
-        max: 5,
-        min: 0,
-        acquire: 10000,
-        idle: 30000,
-      },
-      models: Models,
-      storage: 'sequelize',
-      logging: false,
+  public static initModels(): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Object.values(Models).forEach((modelDefinition: ModelDefinition<any>) => {
+      // Model file exports something like `class UserModel; initModel(); initAssociations();`.
+      // We need the proper name of the class which varies from model to model.
+      const modelClassName = Object
+        .keys(modelDefinition)
+        .filter((name) => /^[A-Z].*Model$/.test(name))[0];
+      const model = modelDefinition.initModel(Database.sequelize);
+
+      Database.models[modelClassName] = model;
+    });
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Object.values(Models).forEach((modelDefinition: ModelDefinition<any>) => {
+      if (modelDefinition.initAssociations) {
+        modelDefinition.initAssociations(Database.models);
+      }
     });
   }
 }

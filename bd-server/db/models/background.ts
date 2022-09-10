@@ -1,21 +1,34 @@
-import { Column, CreatedAt, DataType, Model, Table, UpdatedAt } from 'sequelize-typescript';
+import { DataTypes, Model, Sequelize } from 'sequelize';
 
-@Table({ tableName: 'backgrounds' })
-export default class Background extends Model {
-  @Column
+import { defaultModelAttributes, defaultModelOptions, InitModelAttributes } from './sequelize/shared';
+
+export class BackgroundModel extends Model {
+  public id: string;
   public name: string;
-
-  @Column(DataType.ARRAY(DataType.STRING))
   public tags?: string[];
-
-  @Column
   public url: string;
-
-  @CreatedAt
-  @Column({ field: 'created_at' })
   public createdAt: Date;
-
-  @UpdatedAt
-  @Column({ field: 'updated_at' })
   public updatedAt?: Date;
+}
+
+const attributes: InitModelAttributes<BackgroundModel> = {
+  ...defaultModelAttributes,
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  tags: {
+    type: DataTypes.ARRAY(DataTypes.STRING),
+  },
+  url: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+};
+
+export function initModel(sequelize: Sequelize): Model {
+  return (BackgroundModel as any).init(attributes, {
+    sequelize,
+    ...defaultModelOptions('background'),
+  });
 }
