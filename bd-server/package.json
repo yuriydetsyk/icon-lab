@@ -9,7 +9,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "nodemon",
-    "start": "node -r ts-node/register/transpile-only ./index.ts",
+    "start": "node -r ts-node/register/transpile-only ./src/index.ts",
     "clean": "rimraf node_modules dist",
     "test:watch": "jest --watchAll",
     "test:single": "jest --coverage=true",
