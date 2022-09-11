@@ -2,7 +2,7 @@ version: '3.8'
 services:
   database:
     image: postgres:14.2-alpine
-    container_name: iconlab-database
+    container_name: iconlab-database-${ICONLAB_ENV:?}
     environment:
       - POSTGRES_DB=iconlab
       - POSTGRES_USER=${ICONLAB_DB_USERNAME:?}
@@ -22,7 +22,7 @@ services:
 
   api:
     image: yuriydetsyk/icon-lab:${DEPLOY_TAG:-latest}
-    container_name: iconlab-api
+    container_name: iconlab-api-${ICONLAB_ENV:?}
     restart: unless-stopped
     build:
       context: ./
