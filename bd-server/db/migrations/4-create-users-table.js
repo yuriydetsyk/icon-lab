@@ -33,12 +33,15 @@ module.exports = {
         isAdmin: {
           type: DataTypes.BOOLEAN,
           allowNull: false,
+          field: 'is_admin',
         },
         firstName: {
           type: DataTypes.STRING,
+          field: 'first_name',
         },
         lastName: {
           type: DataTypes.STRING,
+          field: 'last_name',
         },
         ...timestampAttributes,
       })
