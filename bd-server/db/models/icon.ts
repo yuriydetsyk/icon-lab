@@ -44,5 +44,5 @@ export function initModel(sequelize: Sequelize): Model {
 }
 
 export function initAssociations(models: any) {
-  IconModel.belongsToMany(models.CategoryModel, { through: models.IconCategory });
+  IconModel.belongsToMany(models.CategoryModel, { through: models.IconCategoryModel });
 }

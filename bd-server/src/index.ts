@@ -12,11 +12,12 @@ import { apiRouter } from './routers/api';
 // DB (IIFE is used for the top-level await)
 (async () => {
   await Database.connect();
+  Database.initModels();
 })();
 
 // AWS
-// process.env.AWS_ACCESS_KEY_ID = process.env.ICONLAB_AWS_ACCESS_KEY_ID;
-// process.env.AWS_SECRET_ACCESS_KEY = process.env.ICONLAB_AWS_SECRET_ACCESS_KEY;
+process.env.AWS_ACCESS_KEY_ID = config.aws.accessKeyId;
+process.env.AWS_SECRET_ACCESS_KEY = config.aws.secretAccessKey;
 AWS.config.update({
   region: 'eu-central-1',
   accessKeyId: config.aws.accessKeyId,
