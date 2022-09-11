@@ -1,6 +1,6 @@
 {
   "name": "bd-client",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "Icon Lab Web App",
   "license": "UNLICENSED",
   "author": "Chunkup",
@@ -74,7 +74,6 @@
     "jest-preset-angular": "12.2.0",
     "ng-mocks": "14.2.0",
     "prettier": "2.1.2",
-    "protractor": "7.0.0",
     "ts-jest": "28.0.8",
     "ts-node": "8.3.0",
     "typescript": "4.6.4"

@@ -24,14 +24,47 @@ const s3 = new S3();
 
 export async function getIcons(req: Request) {
   const { keyword, categoryId } = req.query;
-  const columns = Object.keys(IconModel.getAttributes()).map((key) => `i.${convertToDashes(key)}`);
-  const columnsWithAliases = Object.keys(IconModel.getAttributes()).map((key) => `i.${convertToDashes(key)} as "${key}"`);
-  const catColumnsWithAliases = Object.keys(CategoryModel.getAttributes()).map((key) => `'${key}', c.${convertToDashes(key)}`);
-  let query = `SELECT ${columnsWithAliases}, COALESCE(json_agg(json_build_object(${catColumnsWithAliases})) FILTER (WHERE c.id IS NOT NULL), '[]') as categories FROM icon i`;
+
+  // const columns = Object.keys(IconModel.getAttributes()).map((key) => `i.${convertToDashes(key)}`);
+  // const columnsWithAliases = Object.keys(IconModel.getAttributes()).map((key) => `i.${convertToDashes(key)} as "${key}"`);
+  // const catColumnsWithAliases = Object.keys(CategoryModel.getAttributes()).map((key) => `'${key}', c.${convertToDashes(key)}`);
+  // let query = `SELECT ${columnsWithAliases}, COALESCE(json_agg(json_build_object(${catColumnsWithAliases})) FILTER (WHERE c.id IS NOT NULL), '[]') as categories FROM icon i`;
+
+  let query = `
+    SELECT
+      i.id,
+      i.name,
+      i.tags,
+      i.url,
+      i.type,
+      i.is_premium AS isPremium,
+      i.original_id AS originalId,
+      i.created_at AS createdAt,
+      i.updated_at AS updatedAt,
+      COALESCE(json_agg(json_build_object(
+        'id', c.id,
+        'name', c.name,
+        'description', c.description,
+        'createdAt', c.created_at,
+        'updatedAt', c.updated_at
+      )) FILTER (WHERE c.id IS NOT NULL), '[]') AS categories
+    FROM icon i
+  `;
   let joinQuery = 'LEFT JOIN icon_category ic ON ic.icon_id = i.id';
   joinQuery += ' LEFT JOIN category c ON c.id = ic.category_id';
   let whereClause: string;
-  let groupClause = `GROUP BY ${columns}`;
+  let groupClause = `
+    GROUP BY
+      i.id,
+      i.name,
+      i.tags,
+      i.url,
+      i.type,
+      i.is_premium,
+      i.original_id,
+      i.created_at,
+      i.updated_at
+  `;
 
   const user = (req as RequestWithUser).user;
   const renderPremiumIcons = !!user?.isAdmin; // TODO: configure premium access
