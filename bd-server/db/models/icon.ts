@@ -34,6 +34,16 @@ const attributes: InitModelAttributes<IconModel> = {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  isPremium: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+    field: 'is_premium',
+  },
+  originalId: {
+    type: DataTypes.UUID,
+    field: 'original_id',
+  },
 };
 
 export function initModel(sequelize: Sequelize): Model {
