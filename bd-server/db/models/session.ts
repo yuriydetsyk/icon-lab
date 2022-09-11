@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from 'sequelize';
-import { defaultModelOptions, InitModelAttributes } from './sequelize/shared';
+import { defaultModelAttributes, defaultModelOptions, InitModelAttributes } from './sequelize/shared';
 
 export class SessionModel extends Model {
   public sid: string;
@@ -21,20 +21,13 @@ const attributes: InitModelAttributes<SessionModel> = {
   data: {
     type: DataTypes.TEXT,
   },
-  createdAt: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: Sequelize.literal('now()'),
-  },
-  updatedAt: {
-    type: DataTypes.DATE,
-    allowNull: true,
-  },
+  createdAt: defaultModelAttributes.createdAt,
+  updatedAt: defaultModelAttributes.updatedAt,
 };
 
 export function initModel(sequelize: Sequelize): Model {
   return (SessionModel as any).init(attributes, {
     sequelize,
-    ...defaultModelOptions('Session'),
+    ...defaultModelOptions('session'),
   });
 }

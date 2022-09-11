@@ -12,13 +12,4 @@ module.exports = {
       type: Sequelize.DATE,
     },
   },
-  timestampAttributesOriginal: {
-    createdAt: {
-      allowNull: false,
-      type: Sequelize.DATE,
-    },
-    updatedAt: {
-      type: Sequelize.DATE,
-    },
-  },
 };
