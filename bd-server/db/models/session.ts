@@ -10,7 +10,6 @@ export class SessionModel extends Model {
 }
 
 const attributes: InitModelAttributes<SessionModel> = {
-  ...defaultModelAttributes,
   sid: {
     type: DataTypes.STRING,
     primaryKey: true,
