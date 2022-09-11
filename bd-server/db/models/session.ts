@@ -10,7 +10,6 @@ export class SessionModel extends Model {
 }
 
 const attributes: InitModelAttributes<SessionModel> = {
-  ...defaultModelAttributes,
   sid: {
     type: DataTypes.STRING,
     primaryKey: true,
@@ -29,6 +28,6 @@ const attributes: InitModelAttributes<SessionModel> = {
 export function initModel(sequelize: Sequelize): Model {
   return (SessionModel as any).init(attributes, {
     sequelize,
-    ...defaultModelOptions('Session'),
+    ...defaultModelOptions('session'),
   });
 }

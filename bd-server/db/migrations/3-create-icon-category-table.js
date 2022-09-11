@@ -16,17 +16,19 @@ module.exports = {
   up: async (queryInterface) => {
     return await queryInterface
       .createTable(iconCategoryTableName, {
-        icon_id: {
+        iconId: {
           allowNull: false,
           type: DataTypes.UUID,
           references: { model: iconTableName, key: 'id' },
           onDelete: 'CASCADE',
+          field: 'icon_id',
         },
-        category_id: {
+        categoryId: {
           allowNull: false,
           type: DataTypes.UUID,
           references: { model: categoryTableName, key: 'id' },
           onDelete: 'CASCADE',
+          field: 'category_id',
         },
         ...timestampAttributes,
       })

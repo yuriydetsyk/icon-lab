@@ -1,9 +1,9 @@
 const DataTypes = require('sequelize').DataTypes;
 
-const timestampAttributesOriginal = require('../helpers/timestamps').timestampAttributesOriginal;
+const timestampAttributes = require('../helpers/timestamps').timestampAttributes;
 const handleError = require('../helpers/console').handleError;
 
-const tableName = 'Session';
+const tableName = 'session';
 
 module.exports = {
   tableName,
@@ -25,7 +25,7 @@ module.exports = {
         data: {
           type: DataTypes.TEXT,
         },
-        ...timestampAttributesOriginal,
+        ...timestampAttributes,
       })
       .catch(handleError);
   },
