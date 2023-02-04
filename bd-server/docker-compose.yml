@@ -3,6 +3,7 @@ services:
   database:
     image: postgres:14.2-alpine
     container_name: iconlab-database-${ICONLAB_ENV:?}
+    restart: unless-stopped
     environment:
       - POSTGRES_DB=iconlab
       - POSTGRES_USER=${ICONLAB_DB_USERNAME:?}

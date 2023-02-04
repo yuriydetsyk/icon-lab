@@ -1,6 +1,6 @@
 {
   "name": "bd-client",
-  "version": "2.5.0",
+  "version": "2.6.0",
   "description": "Icon Lab Web App",
   "license": "UNLICENSED",
   "author": "Chunkup",
@@ -17,8 +17,8 @@
     "test:file": "npm run test:single:dry -- -t",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "deploy:ghp:stage": "ng deploy --cname=dev.icon-lab.co --build-target=bd-client:build:staging --no-silent",
-    "deploy:ghp:prod": "ng deploy --cname=icon-lab.co --build-target=bd-client:build:production --no-silent --repo=https://github.com/YuriyDetsyk/icon-lab-ui-prod.git"
+    "deploy:ghp:stage": "ng deploy --cname=iconlab.dev.chunkup.com --build-target=bd-client:build:staging --no-silent",
+    "deploy:ghp:prod": "ng deploy --cname=iconlab.chunkup.com --build-target=bd-client:build:production --no-silent --repo=https://github.com/YuriyDetsyk/icon-lab-ui-prod.git"
   },
   "husky": {
     "hooks": {

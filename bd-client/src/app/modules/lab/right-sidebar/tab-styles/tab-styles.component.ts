@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../../../../environments/environment';
 import { IconStyleService } from '../../../../core/services/icon-style.service';
 
 import { IconStyle } from '../../../../models/interfaces/icon-style';
@@ -14,7 +15,7 @@ export class TabStylesComponent implements OnInit {
     {
       id: 'some-id',
       name: 'Bubbly Icons',
-      url: 'https://img.icon-lab.co/styles/bubbly-icons.png',
+      url: `${environment.imgUrl}/styles/bubbly-icons.png`,
     },
   ];
   public DataHelper = DataHelper;
