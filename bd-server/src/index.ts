@@ -28,7 +28,7 @@ AWS.config.update({
 const app = express();
 
 // CORS
-app.use(cors({ origin: /.*.?(bubble-doodle\.com|icon-lab\.co)/, credentials: true }));
+app.use(cors({ origin: /.*.?chunkup\.com/, credentials: true }));
 
 // Data processing
 const UPLOAD_SIZE_LIMIT = '500kb';
