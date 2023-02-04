@@ -100,7 +100,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "bd-client:build",
-            "host": "local.icon-lab.co",
+            "host": "iconlab.local.chunkup.com",
             "port": 4801,
             "ssl": true,
             "sslKey": "./certificates/icon-lab.key",

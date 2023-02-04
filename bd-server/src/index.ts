@@ -49,7 +49,7 @@ if (!isProduction) {
   const credentials = { key: privateKey, cert: certificate };
 
   server = https.createServer(credentials, app);
-  hostname = 'local.icon-lab.co';
+  hostname = 'iconlab.local.chunkup.com';
 } else {
   server = http.createServer(app);
 }

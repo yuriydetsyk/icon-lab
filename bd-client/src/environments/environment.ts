@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://local.icon-lab.co:4800/api',
+  apiUrl: 'https://iconlab.local.chunkup.com:4800/api',
+  imgUrl: 'https://iconlab.img.chunkup.com',
 };
 
 /*

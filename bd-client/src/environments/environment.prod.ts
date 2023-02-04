@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://api.icon-lab.co/api',
+  apiUrl: 'https://iconlab.api.chunkup.com/api',
+  imgUrl: 'https://iconlab.img.chunkup.com',
 };
